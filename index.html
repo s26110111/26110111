@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Y2K Cyber Portfolio Portal - 網頁程式課作品集</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Press Start 2P & DotGothic16 for Y2K arcade retro look -->
+    <link href="https://fonts.googleapis.com/css2?family=DotGothic16&family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #0d0221;
+            background-image: 
+                radial-gradient(circle at 50% 50%, #240046 0%, #0d0221 100%),
+                linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), 
+                linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            background-size: 100% 100%, 100% 4px, 6px 100%;
+            font-family: 'DotGothic16', monospace;
+            color: #00ffcc;
+            overflow-x: hidden;
+        }
+
+        .retro-font-title {
+            font-family: 'Press Start 2P', cursive;
+        }
+
+        .vt323-font {
+            font-family: 'VT323', monospace;
+        }
+
+        /* Win98 / Cyber Window Chrome Style */
+        .win98-window {
+            background: #c0c0c0;
+            border-top: 3px solid #dfdfdf;
+            border-left: 3px solid #dfdfdf;
+            border-right: 3px solid #808080;
+            border-bottom: 3px solid #808080;
+            box-shadow: 6px 6px 0px rgba(0, 0, 0, 0.8), inset 1px 1px 0px #ffffff;
+        }
+
+        .win98-titlebar {
+            background: linear-gradient(90deg, #000080, #1084d0);
+            color: #ffffff;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+
+        .win98-button {
+            background: #c0c0c0;
+            border-top: 2px solid #ffffff;
+            border-left: 2px solid #ffffff;
+            border-right: 2px solid #404040;
+            border-bottom: 2px solid #404040;
+            box-shadow: inset 1px 1px 0px #dfdfdf;
+        }
+
+        .win98-button:active {
+            border-top: 2px solid #404040;
+            border-left: 2px solid #404040;
+            border-right: 2px solid #ffffff;
+            border-bottom: 2px solid #ffffff;
+        }
+
+        /* Y2K Neon & Chrome Glow Effects */
+        .neon-glow-pink {
+            text-shadow: 0 0 5px #ff007f, 0 0 10px #ff007f, 0 0 20px #ff007f;
+        }
+
+        .neon-glow-cyan {
+            text-shadow: 0 0 5px #00ffff, 0 0 10px #00ffff, 0 0 20px #00ffff;
+        }
+
+        .cyber-grid-btn {
+            background: #111;
+            border: 2px solid #00ffcc;
+            transition: all 0.2s ease-in-out;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cyber-grid-btn:hover {
+            background: #ff007f;
+            border-color: #ffff00;
+            color: #ffffff;
+            box-shadow: 0 0 15px #ff007f, 0 0 30px #ffff00;
+            transform: translateY(-3px) scale(1.02);
+        }
+
+        .cyber-grid-btn::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(60deg, transparent, rgba(255,255,255,0.1), transparent);
+            transform: rotate(45deg);
+            transition: 0.5s;
+        }
+
+        .cyber-grid-btn:hover::after {
+            left: 100%;
+        }
+
+        .locked-btn {
+            background: #1a1a1a;
+            border: 2px dashed #444;
+            color: #666;
+            cursor: not-allowed;
+            filter: grayscale(100%);
+        }
+
+        /* Custom Scrollbar for Retro Feel */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0d0221;
+            border: 1px solid #00ffcc;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #ff007f;
+            border: 1px solid #ffff00;
+        }
+    </style>
+</head>
+<body class="min-h-screen p-2 sm:p-6 flex flex-col items-center justify-between">
+
+    <header class="w-full max-w-5xl mb-4">
+        <div class="win98-window p-1 mb-2 flex justify-between items-center text-xs text-black">
+            <div class="flex items-center space-x-1 px-1 font-bold">
+                <span>💾</span>
+                <span>CYBER_PORTAL_OS v2.0</span>
+            </div>
+            <div class="flex space-x-1">
+                <button class="win98-button px-2 py-0.5 text-xs font-bold">_</button>
+                <button class="win98-button px-2 py-0.5 text-xs font-bold">□</button>
+                <button class="win98-button px-2 py-0.5 text-xs font-bold text-red-600">×</button>
+            </div>
+        </div>
+        
+        <!-- Retro Marquee Banner -->
+        <div class="bg-black border-2 border-[#00ffcc] py-1 px-2 text-[#00ffcc] font-mono text-sm overflow-hidden whitespace-nowrap shadow-[0_0_10px_#00ffcc]">
+            <marquee scrollamount="5">⚡ 歡迎光臨我的 Y2K 網頁程式課作品集入口網站！當前等級：Level 2 解鎖中 ⚡ 挑戰任務模式啟動中... ⚡</marquee>
+        </div>
+    </header>
+
+    <main class="w-full max-w-5xl flex-grow flex flex-col items-center">
+        
+        <!-- Profile & Title Section (Win98 Style Box) -->
+        <div class="win98-window w-full p-4 sm:p-6 mb-6 text-black flex flex-col md:flex-row items-center justify-between gap-6 bg-[#c0c0c0]">
+            
+            <!-- Avatar Placeholder with Y2K Retro Frame -->
+            <div class="flex flex-col items-center">
+                <div class="relative p-1 bg-black border-4 border-[#ff007f] shadow-[4px_4px_0px_#00ffff]">
+                    <img src="https://placehold.co/120x120/111111/00ffcc?text=AVATAR" alt="我的大頭貼" class="w-28 h-28 object-cover pixelated">
+                    <div class="absolute -bottom-3 -right-3 bg-[#ffff00] text-black text-[10px] px-1 font-bold border border-black">
+                        LV.02
+                    </div>
+                </div>
+                <span class="mt-2 text-xs font-bold bg-blue-900 text-white px-2 py-0.5 border border-white">ONLINE</span>
+            </div>
+
+            <!-- Profile Info & Bio -->
+            <div class="flex-grow text-center md:text-left">
+                <div class="win98-titlebar px-2 py-1 text-sm mb-2 text-white">USER_PROFILE.EXE</div>
+                <h1 class="retro-font-title text-lg sm:text-2xl text-blue-900 mb-1 neon-glow-cyan">WEB DEV PORTFOLIO</h1>
+                <p class="text-sm sm:text-base font-bold text-gray-800 mb-2">學生名稱：羅茵綺 | 班級：休觀一甲</p>
+                <p class="text-xs sm:text-sm text-gray-700 bg-[#dfdfdf] p-2 border border-gray-500 font-mono">
+                    系統提示：本站採用經典 Y2K 千禧年賽博龐克風格。已解鎖前兩週之任務關卡，請點擊下方按鈕進入作業成果！其餘關卡持續建置中，敬請期待。
+                </p>
+            </div>
+
+            <!-- Mini Winamp / Retro Widget Badge -->
+            <div class="hidden lg:flex flex-col items-center justify-center bg-black p-3 border-2 border-[#00ffcc] text-[#00ffcc] text-xs">
+                <div class="text-[#ff007f] font-bold mb-1">♪ PLAYING NOW</div>
+                <div class="vt323-font text-lg">Y2K_Cyber_Beats.mp3</div>
+                <div class="flex space-x-1 mt-1 text-[10px]">
+                    <span class="bg-gray-800 px-1">▶</span>
+                    <span class="bg-gray-800 px-1">❚❚</span>
+                    <span class="bg-gray-800 px-1">■</span>
+                    <span class="bg-gray-800 px-1 text-yellow-300">HQ</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="win98-window w-full p-4 sm:p-6 bg-[#c0c0c0]">
+            <div class="win98-titlebar px-2 py-1 text-sm mb-4 text-white flex justify-between items-center">
+                <span>QUEST_LOG_STAGE_16.EXE (16任務選單)</span>
+                <span class="text-xs text-yellow-300">進度: 2 / 16 解鎖</span>
+            </div>
+
+            <!-- Responsive Grid of 16 Buttons -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
+                
+                <!-- Button 1: Unlocked Week 1 -->
+                <a href="w1/index.html" class="cyber-grid-btn p-3 rounded text-left flex flex-col justify-between group shadow-md min-h-[90px]">
+                    <div class="flex justify-between items-start">
+                        <span class="text-[10px] text-[#00ffcc] group-hover:text-yellow-300 font-mono">QUEST 01</span>
+                        <span class="text-xs bg-[#00ffcc] text-black px-1 font-bold">UNLOCKED</span>
+                    </div>
+                    <div class="my-1">
+                        <h3 class="text-sm sm:text-base font-bold text-white group-hover:text-yellow-200">Week 1 - 數位名片</h3>
+                    </div>
+                    <div class="text-[10px] text-gray-400 group-hover:text-white flex items-center justify-between">
+                        <span>點擊進入 →</span>
+                        <span class="text-green-400">● 準備就緒</span>
+                    </div>
+                </a>
+
+                <!-- Button 2: Unlocked Week 2 -->
+                <a href="w2/index.html" class="cyber-grid-btn p-3 rounded text-left flex flex-col justify-between group shadow-md min-h-[90px]">
+                    <div class="flex justify-between items-start">
+                        <span class="text-[10px] text-[#00ffcc] group-hover:text-yellow-300 font-mono">QUEST 02</span>
+                        <span class="text-xs bg-[#00ffcc] text-black px-1 font-bold">UNLOCKED</span>
+                    </div>
+                    <div class="my-1">
+                        <h3 class="text-sm sm:text-base font-bold text-white group-hover:text-yellow-200">Week 2 - 今天吃甚麼?</h3>
+                    </div>
+                    <div class="text-[10px] text-gray-400 group-hover:text-white flex items-center justify-between">
+                        <span>點擊進入 →</span>
+                        <span class="text-green-400">● 準備就緒</span>
+                    </div>
+                </a>
+
+                <!-- Buttons 3 to 16: Locked State with 🔒 Emoji -->
+                <!-- Button 3 -->
+                <div class="locked-btn p-3 rounded flex flex-col justify-between min-h-[90px]">
+                    <div class="flex justify-between items-start">
+                        <span class="text-[10px] text-gray-500 font-mono">QUEST 03</span>
+                        <span class="text-xs">🔒 鎖定</span>
+                    </div>
+                    <div class="my-1">
+                        <h3 class="text-sm sm:text-base font-bold text-gray-500">Week 3 - 敬請期待</h3>
+                    </div>
+                    <div class="text-[10px] text-gray-600">未解鎖關卡</div>
+                </div>
+
+                <!-- Button 4 -->
+                <div class="locked-btn p-3 rounded flex flex-col justify-between min-h-[90px]">
+                    <div class="flex justify-between items-start">
+                        <span class="text-[10px] text-gray-500 font-mono">QUEST 04</span>
+                        <span class="text-xs">🔒 鎖定</span>
+                    </div>
+                    <div class="my-1">
+                        <h3 class="text-sm sm:text-base font-bold text-gray-500">Week 4 - 敬請期待</h3>
+                    </div>
+                    <div class="text-[10px] text-gray-600">未解鎖關卡</div>
+                </div>
+
+                <!-- Button 5 -->
+                <div class="locked-btn p-3 rounded flex flex-col justify-between min-h-[90px]">
+                    <div class="flex justify-between items-start">
+                        <span class="text-[10px] text-gray-500 font-mono">QUEST 05</span>
+                        <span class="text-xs">🔒 鎖定</span>
+                    </div>
+                    <div class="my-1">
+                        <h3 class="text-sm sm:text-base font-bold text-gray-500">Week 5 - 敬請期待</h3>
+                    </div>
+                    <div class="text-[10px] text-gray-600">未解鎖關卡</div>
+                </div>
+
+                <!-- Button 6 -->
+                <div class="locked-btn p-3 rounded flex flex-col justify-between min-h-[90px]">
+                    <div class="flex justify-between items-start">
+                        <span class="text-[10px] text-gray-500 font-mono">QUEST 06</span>
+                        <span class="text-xs">🔒 鎖定</span>
+                    </div>
+                    <div class="my-1">
+                        <h3 class="text-sm sm:text-base font-bold text-gray-500">Week 6 - 敬請期待</h3>
+                    </div>
+                    <div class="text-[10px] text-gray-600">未解鎖關卡</div>
+                </div>
+
+                <!-- Button 7 -->
+                <div class="locked-btn p-3 rounded flex flex-col justify-between min-h-[90px]">
+                    <div class="flex justify-between items-start">
+                        <span class="text-[10px] text-gray-500 font-mono">QUEST 07</span>
+                        <span class="text-xs">🔒 鎖定</span>
+                    </div>
+                    <div class="my-1">
+                        <h3 class="text-sm sm:text-base font-bold text-gray-500">Week 7 - 敬請期待</h3>
+                    </div>
+                    <div class="text-[10px] text-gray-600">未解鎖關卡</div>
+                </div>
+
+                <!-- Button 8 -->
+                <div class="locked-btn p-3 rounded flex flex-col justify-between min-h-[90px]">
+                    <div class="flex justify-between items-start">
+                        <span class="text-[10px] text-gray-500 font-mono">QUEST 08</span>
+                        <span class="text-xs">🔒 鎖定</span>
+                    </div>
+                    <div class="my-1">
+                        <h3 class="text-sm sm:text-base font-bold text-gray-500">Week 8 - 敬請期待</h3>
+                    </div>
+                    <div class="text-[10px] text-gray-600">未解鎖關卡</div>
+                </div>
+
+                <!-- Button 9 -->
+                <div class="locked-btn p-3 rounded flex flex-col justify-between min-h-[90px]">
+                    <div class="flex justify-between items-start">
+                        <span class="text-[10px] text-gray-500 font-mono">QUEST 09</span>
+                        <span class="text-xs">🔒 鎖定</span>
+                    </div>
+                    <div class="my-1">
+                        <h3 class="text-sm sm:text-base font-bold text-gray-500">Week 9 - 敬請期待</h3>
+                    </div>
+                    <div class="text-[10px] text-gray-600">未解鎖關卡</div>
+                </div>
+
+                <!-- Button 10 -->
+                <div class="locked-btn p-3 rounded flex flex-col justify-between min-h-[90px]">
+                    <div class="flex justify-between items-start">
+                        <span class="text-[10px] text-gray-500 font-mono">QUEST 10</span>
+                        <span class="text-xs">🔒 鎖定</span>
+                    </div>
+                    <div class="my-1">
+                        <h3 class="text-sm sm:text-base font-bold text-gray-500">Week 10 - 敬請期待</h3>
+                    </div>
+                    <div class="text-[10px] text-gray-600">未解鎖關卡</div>
+                </div>
+
+                <!-- Button 11 -->
+                <div class="locked-btn p-3 rounded flex flex-col justify-between min-h-[90px]">
+                    <div class="flex justify-between items-start">
+                        <span class="text-[10px] text-gray-500 font-mono">QUEST 11</span>
+                        <span class="text-xs">🔒 鎖定</span>
+                    </div>
+                    <div class="my-1">
+                        <h3 class="text-sm sm:text-base font-bold text-gray-500">Week 11 - 敬請期待</h3>
+                    </div>
+                    <div class="text-[10px] text-gray-600">未解鎖關卡</div>
+                </div>
+
+                <!-- Button 12 -->
+                <div class="locked-btn p-3 rounded flex flex-col justify-between min-h-[90px]">
+                    <div class="flex justify-between items-start">
+                        <span class="text-[10px] text-gray-500 font-mono">QUEST 12</span>
+                        <span class="text-xs">🔒 鎖定</span>
+                    </div>
+                    <div class="my-1">
+                        <h3 class="text-sm sm:text-base font-bold text-gray-500">Week 12 - 敬請期待</h3>
+                    </div>
+                    <div class="text-[10px] text-gray-600">未解鎖關卡</div>
+                </div>
+
+                <!-- Button 13 -->
+                <div class="locked-btn p-3 rounded flex flex-col justify-between min-h-[90px]">
+                    <div class="flex justify-between items-start">
+                        <span class="text-[10px] text-gray-500 font-mono">QUEST 13</span>
+                        <span class="text-xs">🔒 鎖定</span>
+                    </div>
+                    <div class="my-1">
+                        <h3 class="text-sm sm:text-base font-bold text-gray-500">Week 13 - 敬請期待</h3>
+                    </div>
+                    <div class="text-[10px] text-gray-600">未解鎖關卡</div>
+                </div>
+
+                <!-- Button 14 -->
+                <div class="locked-btn p-3 rounded flex flex-col justify-between min-h-[90px]">
+                    <div class="flex justify-between items-start">
+                        <span class="text-[10px] text-gray-500 font-mono">QUEST 14</span>
+                        <span class="text-xs">🔒 鎖定</span>
+                    </div>
+                    <div class="my-1">
+                        <h3 class="text-sm sm:text-base font-bold text-gray-500">Week 14 - 敬請期待</h3>
+                    </div>
+                    <div class="text-[10px] text-gray-600">未解鎖關卡</div>
+                </div>
+
+                <!-- Button 15 -->
+                <div class="locked-btn p-3 rounded flex flex-col justify-between min-h-[90px]">
+                    <div class="flex justify-between items-start">
+                        <span class="text-[10px] text-gray-500 font-mono">QUEST 15</span>
+                        <span class="text-xs">🔒 鎖定</span>
+                    </div>
+                    <div class="my-1">
+                        <h3 class="text-sm sm:text-base font-bold text-gray-500">Week 15 - 敬請期待</h3>
+                    </div>
+                    <div class="text-[10px] text-gray-600">未解鎖關卡</div>
+                </div>
+
+                <!-- Button 16 -->
+                <div class="locked-btn p-3 rounded flex flex-col justify-between min-h-[90px]">
+                    <div class="flex justify-between items-start">
+                        <span class="text-[10px] text-gray-500 font-mono">QUEST 16</span>
+                        <span class="text-xs">🔒 鎖定</span>
+ </div>
+                    <div class="my-1">
+                        <h3 class="text-sm sm:text-base font-bold text-gray-500">Week 14 - 敬請期待</h3>
+                    </div>
+                    <div class="text-[10px] text-gray-600">未解鎖關卡</div>
+                </div>
+
+                <!-- Button 15 -->
+                <div class="locked-btn p-3 rounded flex flex-col justify-between min-h-[90px]">
+                    <div class="flex justify-between items-start">
+                        <span class="text-[10px] text-gray-500 font-mono">QUEST 15</span>
+                        <span class="text-xs">🔒 鎖定</span>
+                    </div>
+                    <div class="my-1">
+                        <h3 class="text-sm sm:text-base font-bold text-gray-500">Week 15 - 敬請期待</h3>
+                    </div>
+                    <div class="text-[10px] text-gray-600">未解鎖關卡</div>
+                </div>
+
+                <!-- Button 16 -->
+                <div class="locked-btn p-3 rounded flex flex-col justify-between min-h-[90px]">
+                    <div class="flex justify-between items-start">
+                        <span class="text-[10px] text-gray-500 font-mono">QUEST 16</span>
+                        <span class="text-xs">🔒 鎖定</span>
+                    </div>
+                    <div class="my-1">
+                        <h3 class="text-sm sm:text-base font-bold text-gray-500">Week 16 - 最終決戰</h3>
+                    </div>
+                    <div class="text-[10px] text-gray-600">未解鎖關卡</div>
+                </div>
+
+            </div>
+        </div>
+
+    </main>
+
+    <footer class="w-full max-w-5xl mt-6 text-center">
+        <div class="win98-window px-4 py-1.5 text-xs text-black flex justify-between items-center font-mono">
+            <span>STATUS: READY (C:\PORTFOLIO\INDEX.HTML)</span>
+            <span>© 2026 Y2K Cyber Student</span>
+        </div>
+    </footer>
+
+</body>
+</html>
