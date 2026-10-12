@@ -1,4 +1,17 @@
 <!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="./style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pen</title>
+  </head>
+  <body>
+
+    <script src="./script.js"></script>
+  </body>
+</html>
+<!DOCTYPE html>
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
@@ -142,7 +155,7 @@
         
         <!-- Retro Marquee Banner -->
         <div class="bg-black border-2 border-[#00ffcc] py-1 px-2 text-[#00ffcc] font-mono text-sm overflow-hidden whitespace-nowrap shadow-[0_0_10px_#00ffcc]">
-            <marquee scrollamount="5">⚡ 歡迎光臨我的 Y2K 網頁程式課作品集入口網站！當前等級：Level 2 解鎖中 ⚡ 挑戰任務模式啟動中... ⚡</marquee>
+            <marquee scrollamount="5">⚡ 歡迎光臨我的 Y2K 網頁程式課作品集入口網站！當前等級：Level 3 解鎖中 ⚡ 挑戰任務模式啟動中... ⚡</marquee>
         </div>
     </header>
 
@@ -156,7 +169,7 @@
                 <div class="relative p-1 bg-black border-4 border-[#ff007f] shadow-[4px_4px_0px_#00ffff]">
                     <img src="https://placehold.co/120x120/111111/00ffcc?text=AVATAR" alt="我的大頭貼" class="w-28 h-28 object-cover pixelated">
                     <div class="absolute -bottom-3 -right-3 bg-[#ffff00] text-black text-[10px] px-1 font-bold border border-black">
-                        LV.02
+                        LV.03
                     </div>
                 </div>
                 <span class="mt-2 text-xs font-bold bg-blue-900 text-white px-2 py-0.5 border border-white">ONLINE</span>
@@ -168,7 +181,7 @@
                 <h1 class="retro-font-title text-lg sm:text-2xl text-blue-900 mb-1 neon-glow-cyan">WEB DEV PORTFOLIO</h1>
                 <p class="text-sm sm:text-base font-bold text-gray-800 mb-2">學生名稱：羅茵綺 | 班級：休觀一甲</p>
                 <p class="text-xs sm:text-sm text-gray-700 bg-[#dfdfdf] p-2 border border-gray-500 font-mono">
-                    系統提示：本站採用經典 Y2K 千禧年賽博龐克風格。已解鎖前兩週之任務關卡，請點擊下方按鈕進入作業成果！其餘關卡持續建置中，敬請期待。
+                    系統提示：本站採用經典 Y2K 千禧年賽博龐克風格。已解鎖前三週之任務關卡，請點擊下方按鈕進入作業成果！其餘關卡持續建置中，敬請期待。
                 </p>
             </div>
 
@@ -188,7 +201,7 @@
         <div class="win98-window w-full p-4 sm:p-6 bg-[#c0c0c0]">
             <div class="win98-titlebar px-2 py-1 text-sm mb-4 text-white flex justify-between items-center">
                 <span>QUEST_LOG_STAGE_16.EXE (16任務選單)</span>
-                <span class="text-xs text-yellow-300">進度: 2 / 16 解鎖</span>
+                <span class="text-xs text-yellow-300">進度: 3 / 16 解鎖</span>
             </div>
 
             <!-- Responsive Grid of 16 Buttons -->
@@ -224,19 +237,22 @@
                     </div>
                 </a>
 
-                <!-- Buttons 3 to 16: Locked State with 🔒 Emoji -->
-                <!-- Button 3 -->
-                <div class="locked-btn p-3 rounded flex flex-col justify-between min-h-[90px]">
+                <!-- Button 3: Unlocked Week 3 (迷因產生器) -->
+                <a href="w3/index.html" class="cyber-grid-btn p-3 rounded text-left flex flex-col justify-between group shadow-md min-h-[90px]">
                     <div class="flex justify-between items-start">
-                        <span class="text-[10px] text-gray-500 font-mono">QUEST 03</span>
-                        <span class="text-xs">🔒 鎖定</span>
+                        <span class="text-[10px] text-[#00ffcc] group-hover:text-yellow-300 font-mono">QUEST 03</span>
+                        <span class="text-xs bg-[#00ffcc] text-black px-1 font-bold">UNLOCKED</span>
                     </div>
                     <div class="my-1">
-                        <h3 class="text-sm sm:text-base font-bold text-gray-500">Week 3 - 敬請期待</h3>
+                        <h3 class="text-sm sm:text-base font-bold text-white group-hover:text-yellow-200">Week 3 - 迷因產生器</h3>
                     </div>
-                    <div class="text-[10px] text-gray-600">未解鎖關卡</div>
-                </div>
+                    <div class="text-[10px] text-gray-400 group-hover:text-white flex items-center justify-between">
+                        <span>點擊進入 →</span>
+                        <span class="text-green-400">● 準備就緒</span>
+                    </div>
+                </a>
 
+                <!-- Buttons 4 to 16: Locked State with 🔒 Emoji -->
                 <!-- Button 4 -->
                 <div class="locked-btn p-3 rounded flex flex-col justify-between min-h-[90px]">
                     <div class="flex justify-between items-start">
@@ -363,30 +379,6 @@
                         <span class="text-[10px] text-gray-500 font-mono">QUEST 14</span>
                         <span class="text-xs">🔒 鎖定</span>
                     </div>
-                    <div class="my-1">
-                        <h3 class="text-sm sm:text-base font-bold text-gray-500">Week 14 - 敬請期待</h3>
-                    </div>
-                    <div class="text-[10px] text-gray-600">未解鎖關卡</div>
-                </div>
-
-                <!-- Button 15 -->
-                <div class="locked-btn p-3 rounded flex flex-col justify-between min-h-[90px]">
-                    <div class="flex justify-between items-start">
-                        <span class="text-[10px] text-gray-500 font-mono">QUEST 15</span>
-                        <span class="text-xs">🔒 鎖定</span>
-                    </div>
-                    <div class="my-1">
-                        <h3 class="text-sm sm:text-base font-bold text-gray-500">Week 15 - 敬請期待</h3>
-                    </div>
-                    <div class="text-[10px] text-gray-600">未解鎖關卡</div>
-                </div>
-
-                <!-- Button 16 -->
-                <div class="locked-btn p-3 rounded flex flex-col justify-between min-h-[90px]">
-                    <div class="flex justify-between items-start">
-                        <span class="text-[10px] text-gray-500 font-mono">QUEST 16</span>
-                        <span class="text-xs">🔒 鎖定</span>
- </div>
                     <div class="my-1">
                         <h3 class="text-sm sm:text-base font-bold text-gray-500">Week 14 - 敬請期待</h3>
                     </div>
