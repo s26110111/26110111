@@ -422,4 +422,711 @@
     </footer>
 
 </body>
+</html><!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Y2K Cyber Meme Generator - 迷因產生器</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=DotGothic16&family=Press+Start+2P&family=VT323&family=Impact&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            background-color: #0d0221;
+            background-image: 
+                radial-gradient(circle at 50% 50%, #240046 0%, #0d0221 100%),
+                linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), 
+                linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            background-size: 100% 100%, 100% 4px, 6px 100%;
+            font-family: 'DotGothic16', monospace;
+            color: #00ffcc;
+            min-height: 100vh;
+        }
+
+        .retro-title {
+            font-family: 'Press Start 2P', cursive;
+        }
+
+        .vt323-font {
+            font-family: 'VT323', monospace;
+        }
+
+        /* Windows 98 Cyber Window Style */
+        .win98-window {
+            background: #c0c0c0;
+            border-top: 3px solid #dfdfdf;
+            border-left: 3px solid #dfdfdf;
+            border-right: 3px solid #808080;
+            border-bottom: 3px solid #808080;
+            box-shadow: 6px 6px 0px rgba(0, 0, 0, 0.8), inset 1px 1px 0px #ffffff;
+            color: #000;
+        }
+
+        .win98-titlebar {
+            background: linear-gradient(90deg, #000080, #1084d0);
+            color: #ffffff;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+
+        .win98-button {
+            background: #c0c0c0;
+            border-top: 2px solid #ffffff;
+            border-left: 2px solid #ffffff;
+            border-right: 2px solid #404040;
+            border-bottom: 2px solid #404040;
+            box-shadow: inset 1px 1px 0px #dfdfdf;
+            color: #000;
+            font-weight: bold;
+            transition: all 0.1s ease;
+        }
+
+        .win98-button:hover:not(:disabled) {
+            background: #d4d4d4;
+        }
+
+        .win98-button:active:not(:disabled) {
+            border-top: 2px solid #404040;
+            border-left: 2px solid #404040;
+            border-right: 2px solid #ffffff;
+            border-bottom: 2px solid #ffffff;
+            padding-top: 1px;
+            padding-left: 1px;
+        }
+
+        /* Cyberpunk Glow & Buttons */
+        .cyber-btn {
+            background: #111;
+            border: 2px solid #00ffcc;
+            color: #00ffcc;
+            text-shadow: 0 0 5px #00ffcc;
+            box-shadow: 0 0 8px rgba(0, 255, 204, 0.3);
+            transition: all 0.2s ease-in-out;
+        }
+
+        .cyber-btn:hover {
+            background: #ff007f;
+            border-color: #ffff00;
+            color: #ffffff;
+            text-shadow: 0 0 5px #ffffff;
+            box-shadow: 0 0 15px #ff007f, 0 0 25px #ffff00;
+            transform: translateY(-2px);
+        }
+
+        .cyber-btn-pink {
+            background: #111;
+            border: 2px solid #ff007f;
+            color: #ff007f;
+            text-shadow: 0 0 5px #ff007f;
+            box-shadow: 0 0 8px rgba(255, 0, 127, 0.3);
+        }
+
+        .cyber-btn-pink:hover {
+            background: #00ffcc;
+            border-color: #ffffff;
+            color: #000;
+            text-shadow: none;
+            box-shadow: 0 0 15px #00ffcc;
+            transform: translateY(-2px);
+        }
+
+        .neon-glow-pink {
+            text-shadow: 0 0 5px #ff007f, 0 0 10px #ff007f, 0 0 20px #ff007f;
+        }
+
+        .neon-glow-cyan {
+            text-shadow: 0 0 5px #00ffff, 0 0 10px #00ffff, 0 0 20px #00ffff;
+        }
+
+        /* Custom Scrollbars */
+        ::-webkit-scrollbar {
+            width: 10px;
+            height: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0d0221;
+            border: 1px solid #00ffcc;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #ff007f;
+            border: 1px solid #ffff00;
+        }
+
+        /* Retro input styles */
+        .retro-input {
+            background: #1a1a2e;
+            border: 2px solid #00ffcc;
+            color: #ffff00;
+            outline: none;
+            font-family: 'DotGothic16', monospace;
+        }
+        .retro-input:focus {
+            border-color: #ff007f;
+            box-shadow: 0 0 10px #ff007f;
+        }
+
+        .preset-card {
+            border: 2px solid #444;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+        .preset-card:hover, .preset-card.active {
+            border-color: #00ffcc;
+            box-shadow: 0 0 12px #00ffcc;
+            transform: scale(1.03);
+        }
+
+        /* Drag Overlay */
+        .drag-over {
+            border-color: #ff007f !important;
+            background: rgba(255, 0, 127, 0.15) !important;
+        }
+    </style>
+</head>
+<body class="p-2 sm:p-6 flex flex-col items-center justify-between min-h-screen">
+
+    <header class="w-full max-w-6xl mb-4">
+        <!-- Win98 System Bar -->
+        <div class="win98-window p-1 mb-2 flex justify-between items-center text-xs">
+            <div class="flex items-center space-x-2 px-1 font-bold">
+                <span>👾</span>
+                <span>CYBER_MEME_GENERATOR.EXE - [Y2K EDITION v3.0]</span>
+            </div>
+            <div class="flex space-x-1">
+                <a href="../index.html" class="win98-button px-2 py-0.5 text-xs font-bold no-underline flex items-center gap-1">
+                    ◀ 返回主頁
+                </a>
+                <button class="win98-button px-2 py-0.5 text-xs font-bold">_</button>
+                <button class="win98-button px-2 py-0.5 text-xs font-bold">□</button>
+                <button class="win98-button px-2 py-0.5 text-xs font-bold text-red-600" onclick="location.href='../index.html'">×</button>
+            </div>
+        </div>
+        
+        <!-- Marquee Banner -->
+        <div class="bg-black border-2 border-[#00ffcc] py-1 px-3 text-[#00ffcc] font-mono text-xs sm:text-sm overflow-hidden whitespace-nowrap shadow-[0_0_10px_#00ffcc]">
+            <marquee scrollamount="6">⚡ 歡迎使用 Y2K 賽博迷因產生器！上傳圖片或選擇經典梗圖 ⚡ 自訂文字與貼紙 ⚡ 一鍵下載高清迷因 PNG ⚡ TASK 03 UNLOCKED ⚡</marquee>
+        </div>
+    </header>
+
+    <main class="w-full max-w-6xl flex-grow grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+        
+        <!-- LEFT COLUMN: Canvas Preview Window (7 Cols) -->
+        <section class="lg:col-span-7 flex flex-col space-y-4">
+            <div class="win98-window p-4 flex flex-col items-center">
+                <div class="win98-titlebar w-full px-2 py-1 text-sm mb-3 flex justify-between items-center">
+                    <span>🖼️ CANVAS_PREVIEW.SYS</span>
+                    <span id="canvas-dim-badge" class="text-xs text-yellow-300 font-mono">800 x 800 px</span>
+                </div>
+
+                <!-- Canvas Container -->
+                <div id="drop-zone" class="relative w-full flex items-center justify-center bg-black border-2 border-dashed border-[#00ffcc] p-2 rounded min-h-[320px] sm:min-h-[450px] overflow-hidden transition-all">
+                    <canvas id="meme-canvas" class="max-w-full h-auto max-h-[60vh] object-contain shadow-[0_0_20px_rgba(0,255,204,0.3)]"></canvas>
+                    
+                    <!-- Drag & Drop Hint -->
+                    <div id="drag-hint" class="absolute pointer-events-none text-center p-4 bg-black/80 rounded border border-[#ff007f] hidden">
+                        <p class="text-xl font-bold text-[#ff007f] neon-glow-pink mb-1">放開以載入圖片！</p>
+                        <p class="text-xs text-cyan-300">DROP IMAGE TO LOAD</p>
+                    </div>
+                </div>
+
+                <!-- Canvas Action Bar -->
+                <div class="w-full mt-4 flex flex-wrap gap-2 justify-between items-center">
+                    <button id="btn-random" class="cyber-btn px-3 py-2 text-xs sm:text-sm rounded font-bold flex items-center gap-1">
+                        🎲 隨機梗圖
+                    </button>
+                    <button id="btn-clear" class="win98-button px-3 py-2 text-xs sm:text-sm text-red-800 font-bold flex items-center gap-1">
+                        🗑️ 清除文字
+                    </button>
+                    <button id="btn-download" class="cyber-btn-pink px-4 py-2 text-xs sm:text-sm rounded font-bold flex items-center gap-1 text-white">
+                        💾 下載迷因 PNG
+                    </button>
+                </div>
+            </div>
+
+            <!-- Presets Picker Window -->
+            <div class="win98-window p-3">
+                <div class="win98-titlebar px-2 py-0.5 text-xs mb-2 flex justify-between">
+                    <span>🔥 CLASSIC_MEME_PRESETS (熱門梗圖庫)</span>
+                    <span class="text-yellow-200">7 個預設模板</span>
+                </div>
+                <div id="preset-grid" class="grid grid-cols-4 sm:grid-cols-7 gap-2 max-h-32 overflow-y-auto p-1 bg-gray-900 border border-gray-600 rounded">
+                    <!-- Dynamic Preset Thumbnails -->
+                </div>
+            </div>
+        </section>
+
+        <!-- RIGHT COLUMN: Control Panel Window (5 Cols) -->
+        <section class="lg:col-span-5 flex flex-col space-y-4">
+            
+            <!-- Controls Box -->
+            <div class="win98-window p-4">
+                <div class="win98-titlebar px-2 py-1 text-sm mb-3">🎛️ CONTROLS_PANEL.EXE</div>
+                
+                <!-- Tab Navigation -->
+                <div class="flex border-b-2 border-gray-600 mb-4 bg-gray-800/40 p-1 gap-1">
+                    <button id="tab-text-btn" class="win98-button px-3 py-1 text-xs font-bold bg-white text-black">文字設定</button>
+                    <button id="tab-style-btn" class="win98-button px-3 py-1 text-xs font-bold text-gray-700">字型樣式</button>
+                    <button id="tab-sticker-btn" class="win98-button px-3 py-1 text-xs font-bold text-gray-700">Y2K 貼紙</button>
+                </div>
+
+                <!-- TAB 1: TEXT INPUTS -->
+                <div id="tab-text" class="space-y-3">
+                    <!-- Image Upload -->
+                    <div>
+                        <label class="block text-xs font-bold text-gray-800 mb-1">📁 自訂圖片上傳 (Upload Image)</label>
+                        <input type="file" id="image-upload" accept="image/*" class="w-full text-xs text-black bg-white p-1 border border-gray-600 rounded cursor-pointer">
+                    </div>
+
+                    <!-- Top Text -->
+                    <div>
+                        <label class="block text-xs font-bold text-gray-800 mb-1">⬆️ 上方文字 (Top Text)</label>
+                        <input type="text" id="text-top" value="當你寫出沒 BUG 的程式" class="retro-input w-full p-2 text-sm rounded" placeholder="輸入上方文字...">
+                    </div>
+
+                    <!-- Bottom Text -->
+                    <div>
+                        <label class="block text-xs font-bold text-gray-800 mb-1">⬇️ 下方文字 (Bottom Text)</label>
+                        <input type="text" id="text-bottom" value="但你自己也不懂為什麼能跑" class="retro-input w-full p-2 text-sm rounded" placeholder="輸入下方文字...">
+                    </div>
+
+                    <!-- Extra Text Line -->
+                    <div>
+                        <label class="block text-xs font-bold text-gray-800 mb-1">➕ 額外中間文字 (Extra Middle Line)</label>
+                        <input type="text" id="text-middle" value="" class="retro-input w-full p-2 text-sm rounded" placeholder="選填：中間補充文字...">
+                    </div>
+                </div>
+
+                <!-- TAB 2: STYLE & ADJUSTMENTS -->
+                <div id="tab-style" class="space-y-3 hidden">
+                    <!-- Font Family & Uppercase -->
+                    <div class="grid grid-cols-2 gap-2">
+                        <div>
+                            <label class="block text-xs font-bold text-gray-800 mb-1">🔤 字型 (Font)</label>
+                            <select id="font-family" class="w-full text-xs p-1.5 border border-gray-600 bg-white text-black font-bold rounded">
+                                <option value="Impact" selected>Impact (經典迷因)</option>
+                                <option value="'DotGothic16', monospace">DotGothic16 (像素點陣)</option>
+                                <option value="'Press Start 2P', cursive">Press Start 2P (復古街機)</option>
+                                <option value="sans-serif">Arial / Sans-Serif</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-gray-800 mb-1">🔠 轉大寫 (Upper Case)</label>
+                            <select id="text-case" class="w-full text-xs p-1.5 border border-gray-600 bg-white text-black font-bold rounded">
+                                <option value="uppercase" selected>強制大寫 (UPPER)</option>
+                                <option value="normal">保持原樣 (Normal)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Font Size Slider -->
+                    <div>
+                        <div class="flex justify-between text-xs font-bold text-gray-800 mb-1">
+                            <span>🔍 字型大小 (Font Size)</span>
+                            <span id="font-size-val" class="text-blue-900 font-mono">48px</span>
+                        </div>
+                        <input type="range" id="font-size" min="20" max="90" value="48" class="w-full accent-[#ff007f] cursor-pointer">
+                    </div>
+
+                    <!-- Colors: Fill & Stroke -->
+                    <div class="grid grid-cols-2 gap-2 bg-gray-200 p-2 rounded border border-gray-400">
+                        <div>
+                            <label class="block text-xs font-bold text-gray-800 mb-1">🎨 文字顏色 (Fill)</label>
+                            <input type="color" id="text-color" value="#ffffff" class="w-full h-8 cursor-pointer rounded border border-gray-500">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-gray-800 mb-1">✏️ 描邊顏色 (Stroke)</label>
+                            <input type="color" id="stroke-color" value="#000000" class="w-full h-8 cursor-pointer rounded border border-gray-500">
+                        </div>
+                    </div>
+
+                    <!-- Stroke Width Slider -->
+                    <div>
+                        <div class="flex justify-between text-xs font-bold text-gray-800 mb-1">
+                            <span>🖊️ 描邊粗細 (Stroke Thickness)</span>
+                            <span id="stroke-width-val" class="text-blue-900 font-mono">5px</span>
+                        </div>
+                        <input type="range" id="stroke-width" min="0" max="15" value="5" class="w-full accent-blue-700 cursor-pointer">
+                    </div>
+
+                    <!-- Vertical Position Sliders -->
+                    <div class="grid grid-cols-2 gap-2">
+                        <div>
+                            <label class="block text-xs font-bold text-gray-800 mb-1">⬆️ 上方文字位移</label>
+                            <input type="range" id="top-offset" min="10" max="200" value="50" class="w-full accent-cyan-600 cursor-pointer">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-gray-800 mb-1">⬇️ 下方文字位移</label>
+                            <input type="range" id="bottom-offset" min="10" max="200" value="50" class="w-full accent-cyan-600 cursor-pointer">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TAB 3: STICKERS & WATERMARK -->
+                <div id="tab-sticker" class="space-y-3 hidden">
+                    <label class="block text-xs font-bold text-gray-800">🏷️ 選擇 Y2K 懷舊貼紙 (Select Watermark / Sticker)</label>
+                    <div class="grid grid-cols-3 gap-2">
+                        <button class="sticker-opt win98-button p-2 text-xs font-bold text-red-600" data-sticker="APPROVED">✅ APPROVED</button>
+                        <button class="sticker-opt win98-button p-2 text-xs font-bold text-blue-800" data-sticker="CYBER_Y2K">⚡ CYBER_Y2K</button>
+                        <button class="sticker-opt win98-button p-2 text-xs font-bold text-pink-600" data-sticker="HOT">🔥 HOT MEME</button>
+                        <button class="sticker-opt win98-button p-2 text-xs font-bold text-green-700" data-sticker="CONFIDENTIAL">🔒 機密作品</button>
+                        <button class="sticker-opt win98-button p-2 text-xs font-bold text-purple-700" data-sticker="NO_BUG">🐛 NO BUG</button>
+                        <button class="sticker-opt win98-button p-2 text-xs font-bold text-gray-800" data-sticker="NONE">❌ 無貼紙</button>
+                    </div>
+
+                    <!-- Sticker Rotation / Scale -->
+                    <div class="p-2 bg-gray-200 border border-gray-400 rounded space-y-2">
+                        <div class="flex justify-between text-xs font-bold text-gray-800">
+                            <span>貼紙旋轉角度</span>
+                            <span id="sticker-rot-val" class="font-mono">-15°</span>
+                        </div>
+                        <input type="range" id="sticker-rotate" min="-45" max="45" value="-15" class="w-full accent-pink-600 cursor-pointer">
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Quick Info Window -->
+            <div class="win98-window p-3 text-xs text-gray-800 bg-[#dfdfdf]">
+                <div class="font-bold text-blue-900 mb-1 flex items-center gap-1">
+                    <span>💡 快捷操作小撇步：</span>
+                </div>
+                <ul class="list-disc list-inside space-y-0.5 text-[11px] font-mono">
+                    <li>可直接將電腦中的圖片拖曳至上方預覽區域！</li>
+                    <li>點擊「隨機梗圖」快速切換靈感。</li>
+                    <li>支援繁體中文與英數經典 Impact 效果。</li>
+                </ul>
+            </div>
+
+        </section>
+    </main>
+
+    <footer class="w-full max-w-6xl mt-6 text-center">
+        <div class="win98-window px-4 py-1.5 text-xs text-black flex justify-between items-center font-mono">
+            <span>STATUS: MEME_ENGINE_READY (PORTFOLIO_WEEK_03)</span>
+            <span>© 2026 Y2K Cyber Student | 羅茵綺</span>
+        </div>
+    </footer>
+
+    <script>
+        // Preset Meme Image SVG Placeholders (Self-contained vectors for instant loading)
+        const PRESETS = [
+            {
+                name: "Dogecoin / 柴犬迷因",
+                url: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='600' height='600' viewBox='0 0 600 600'><rect width='600' height='600' fill='%23f1c40f'/><circle cx='300' cy='280' r='180' fill='%23e67e22'/><circle cx='230' cy='240' r='25' fill='%23fff'/><circle cx='370' cy='240' r='25' fill='%23fff'/><circle cx='235' cy='240' r='10' fill='%23000'/><circle cx='365' cy='240' r='10' fill='%23000'/><ellipse cx='300' cy='310' rx='40' ry='25' fill='%23000'/><path d='M250 350 Q300 400 350 350' stroke='%23000' stroke-width='8' fill='none'/><text x='50' y='120' font-family='sans-serif' font-size='40' fill='%2327ae60' font-weight='bold'>much code</text><text x='380' y='480' font-family='sans-serif' font-size='42' fill='%23e74c3c' font-weight='bold'>very meme</text></svg>",
+                top: "當你的程式碼第一次跑通",
+                bottom: "MUCH WOW / VERY NO BUG"
+            },
+            {
+                name: "Distracted Boyfriend / 抉擇迷因",
+                url: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='600' height='600' viewBox='0 0 600 600'><rect width='600' height='600' fill='%232c3e50'/><rect x='50' y='150' width='140' height='350' fill='%23e74c3c' rx='10'/><rect x='230' y='120' width='140' height='380' fill='%232980b9' rx='10'/><rect x='410' y='170' width='140' height='330' fill='%239b59b6' rx='10'/><text x='120' y='280' font-family='sans-serif' font-size='24' fill='%23fff' text-anchor='middle'>新的新技術</text><text x='300' y='250' font-family='sans-serif' font-size='24' fill='%23fff' text-anchor='middle'>工程師</text><text x='480' y='290' font-family='sans-serif' font-size='24' fill='%23fff' text-anchor='middle'>待完成作業</text></svg>",
+                top: "看到新的前端框架時",
+                bottom: "舊的專案還沒寫完"
+            },
+            {
+                name: "Drake Hotline / 讚賞與拒絕",
+                url: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='600' height='600' viewBox='0 0 600 600'><rect width='600' height='600' fill='%23f39c12'/><line x1='0' y1='300' x2='600' y2='300' stroke='%23000' stroke-width='6'/><line x1='250' y1='0' x2='250' y2='600' stroke='%23000' stroke-width='6'/><text x='125' y='160' font-size='70' text-anchor='middle'>🙅‍♂️</text><text x='125' y='460' font-size='70' text-anchor='middle'>👉</text><rect x='270' y='20' width='310' height='260' fill='%23fff' rx='10'/><rect x='270' y='320' width='310' height='260' fill='%23fff' rx='10'/><text x='425' y='150' font-family='sans-serif' font-size='26' fill='%23000' text-anchor='middle'>手動調整 CSS</text><text x='425' y='450' font-family='sans-serif' font-size='26' fill='%23000' text-anchor='middle'>用 Tailwind CSS</text></svg>",
+                top: "寫網頁作業的日常選擇",
+                bottom: "效率提升 100%"
+            },
+            {
+                name: "Success Kid / 成功男孩",
+                url: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='600' height='600' viewBox='0 0 600 600'><rect width='600' height='600' fill='%233498db'/><circle cx='300' cy='300' r='180' fill='%23f1c40f'/><path d='M360 250 A30 30 0 0 1 420 280 L380 340 Z' fill='%23e67e22'/><circle cx='230' cy='260' r='18' fill='%23000'/><circle cx='340' cy='240' r='18' fill='%23000'/><path d='M230 350 Q280 320 330 360' stroke='%23000' stroke-width='10' fill='none'/></svg>",
+                top: "沒有查 Google 語法",
+                bottom: "一次成功執行出結果！"
+            },
+            {
+                name: "Disaster Girl / 災難女孩",
+                url: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='600' height='600' viewBox='0 0 600 600'><rect width='600' height='600' fill='%23e74c3c'/><polygon points='0,600 300,200 600,600' fill='%23f39c12'/><circle cx='450' cy='420' r='100' fill='%23ffdbac'/><circle cx='420' cy='400' r='12' fill='%23000'/><circle cx='480' cy='400' r='12' fill='%23000'/><path d='M410 450 Q450 490 490 440' stroke='%23000' stroke-width='6' fill='none'/></svg>",
+                top: "刪除資料庫正式環境",
+                bottom: "準備下班的心情"
+            },
+            {
+                name: "Two Buttons / 艱難抉擇",
+                url: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='600' height='600' viewBox='0 0 600 600'><rect width='600' height='600' fill='%237f8c8d'/><rect x='80' y='180' width='180' height='90' fill='%23e74c3c' rx='15'/><rect x='340' y='180' width='180' height='90' fill='%23e74c3c' rx='15'/><text x='170' y='235' font-family='sans-serif' font-size='20' fill='%23fff' text-anchor='middle'>熬夜通宵寫程式</text><text x='430' y='235' font-family='sans-serif' font-size='20' fill='%23fff' text-anchor='middle'>早上早起補進度</text><circle cx='300' cy='450' r='80' fill='%23bdc3c7'/></svg>",
+                top: "死線前夕的內心抉擇",
+                bottom: "最後還是選了全部"
+            },
+            {
+                name: "Woman Yelling at Cat / 貓咪困惑",
+                url: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='600' height='600' viewBox='0 0 600 600'><rect width='300' height='600' fill='%23e67e22'/><rect x='300' width='300' height='600' fill='%232c3e50'/><circle cx='450' cy='300' r='100' fill='%23fff'/><ellipse cx='420' cy='280' rx='10' ry='20' fill='%23000'/><ellipse cx='480' cy='280' rx='10' ry='20' fill='%23000'/><polygon points='450,310 440,330 460,330' fill='%23ff007f'/></svg>",
+                top: "PM: 這功能明天要上線！",
+                bottom: "工程師: 我連需求文件都沒收到"
+            }
+        ];
+
+        // State variables
+        const canvas = document.getElementById('meme-canvas');
+        const ctx = canvas.getContext('2d');
+        let currentImage = new Image();
+        let selectedSticker = "APPROVED";
+
+        // UI DOM Elements
+        const textTopInput = document.getElementById('text-top');
+        const textBottomInput = document.getElementById('text-bottom');
+        const textMiddleInput = document.getElementById('text-middle');
+        const fontSizeInput = document.getElementById('font-size');
+        const fontSizeVal = document.getElementById('font-size-val');
+        const fontFamilySelect = document.getElementById('font-family');
+        const textCaseSelect = document.getElementById('text-case');
+        const textColorInput = document.getElementById('text-color');
+        const strokeColorInput = document.getElementById('stroke-color');
+        const strokeWidthInput = document.getElementById('stroke-width');
+        const strokeWidthVal = document.getElementById('stroke-width-val');
+        const topOffsetInput = document.getElementById('top-offset');
+        const bottomOffsetInput = document.getElementById('bottom-offset');
+        const stickerRotateInput = document.getElementById('sticker-rotate');
+        const stickerRotVal = document.getElementById('sticker-rot-val');
+        const imageUpload = document.getElementById('image-upload');
+        const presetGrid = document.getElementById('preset-grid');
+        const dropZone = document.getElementById('drop-zone');
+        const dragHint = document.getElementById('drag-hint');
+
+        function initPresets() {
+            presetGrid.innerHTML = '';
+            PRESETS.forEach((preset, idx) => {
+                const card = document.createElement('div');
+                card.className = `preset-card rounded overflow-hidden bg-black p-0.5 ${idx === 0 ? 'active' : ''}`;
+                card.innerHTML = `<img src="${preset.url}" alt="${preset.name}" class="w-full h-16 object-cover rounded">`;
+                card.onclick = () => loadPreset(idx, card);
+                presetGrid.appendChild(card);
+            });
+        }
+
+        function loadPreset(index, cardEl) {
+            document.querySelectorAll('.preset-card').forEach(c => c.classList.remove('active'));
+            if (cardEl) cardEl.classList.add('active');
+            
+            const preset = PRESETS[index];
+            if (preset) {
+                if (preset.top) textTopInput.value = preset.top;
+                if (preset.bottom) textBottomInput.value = preset.bottom;
+                textMiddleInput.value = '';
+                loadImage(preset.url);
+            }
+        }
+
+        function loadImage(src) {
+            currentImage = new Image();
+            currentImage.crossOrigin = "anonymous";
+            currentImage.onload = () => {
+                // Adjust canvas resolution dynamically
+                canvas.width = currentImage.naturalWidth || 800;
+                canvas.height = currentImage.naturalHeight || 800;
+                document.getElementById('canvas-dim-badge').innerText = `${canvas.width} x ${canvas.height} px`;
+                renderCanvas();
+            };
+            currentImage.src = src;
+        }
+
+        function renderCanvas() {
+            if (!currentImage.complete) return;
+
+            // Clear canvas
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Draw Base Image
+            ctx.drawImage(currentImage, 0, 0, canvas.width, canvas.height);
+
+            // Text Settings
+            const fontSize = parseInt(fontSizeInput.value) * (canvas.width / 600); // Scale with resolution
+            const font = fontFamilySelect.value;
+            const isUpper = textCaseSelect.value === 'uppercase';
+            const strokeWidth = parseInt(strokeWidthInput.value) * (canvas.width / 600);
+
+            ctx.fillStyle = textColorInput.value;
+            ctx.strokeStyle = strokeColorInput.value;
+            ctx.lineWidth = strokeWidth;
+            ctx.font = `900 ${fontSize}px ${font}`;
+            ctx.textAlign = 'center';
+            ctx.lineJoin = 'round';
+
+            // Function to render styled line of text
+            const drawTextLine = (text, x, y, baseline = 'alphabetic') => {
+                if (!text.trim()) return;
+                const formattedText = isUpper ? text.toUpperCase() : text;
+                ctx.textBaseline = baseline;
+
+                if (strokeWidth > 0) {
+                    ctx.strokeText(formattedText, x, y);
+                }
+                ctx.fillText(formattedText, x, y);
+            };
+
+            // Render Top Text
+            const topY = (parseInt(topOffsetInput.value) / 1000) * canvas.height;
+            drawTextLine(textTopInput.value, canvas.width / 2, topY, 'top');
+
+            // Render Middle Text (if present)
+            if (textMiddleInput.value.trim()) {
+                drawTextLine(textMiddleInput.value, canvas.width / 2, canvas.height / 2, 'middle');
+            }
+
+            // Render Bottom Text
+            const bottomY = canvas.height - ((parseInt(bottomOffsetInput.value) / 1000) * canvas.height);
+            drawTextLine(textBottomInput.value, canvas.width / 2, bottomY, 'bottom');
+
+            // Render Watermark / Y2K Sticker overlay
+            if (selectedSticker && selectedSticker !== 'NONE') {
+                drawSticker(selectedSticker);
+            }
+        }
+
+        function drawSticker(label) {
+            ctx.save();
+            const posX = canvas.width * 0.82;
+            const posY = canvas.height * 0.18;
+            const angle = parseInt(stickerRotateInput.value) * Math.PI / 180;
+
+            ctx.translate(posX, posY);
+            ctx.rotate(angle);
+
+            // Sticker Box Frame
+            ctx.fillStyle = "rgba(0, 0, 0, 0.75)";
+            ctx.strokeStyle = "#00ffcc";
+            ctx.lineWidth = 4;
+            
+            const padding = 15;
+            ctx.font = `bold ${canvas.width * 0.035}px 'Press Start 2P', monospace`;
+            const textMetrics = ctx.measureText(label);
+            const boxWidth = textMetrics.width + padding * 2;
+            const boxHeight = canvas.width * 0.06;
+
+            ctx.fillRect(-boxWidth/2, -boxHeight/2, boxWidth, boxHeight);
+            ctx.strokeRect(-boxWidth/2, -boxHeight/2, boxWidth, boxHeight);
+
+            // Text on Sticker
+            ctx.fillStyle = "#ff007f";
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.shadowColor = '#ffff00';
+            ctx.shadowBlur = 8;
+            ctx.fillText(label, 0, 0);
+
+            ctx.restore();
+        }
+
+        function setupEventListeners() {
+            // Inputs change triggers redrawing
+            const inputs = [
+                textTopInput, textBottomInput, textMiddleInput, fontSizeInput,
+                fontFamilySelect, textCaseSelect, textColorInput, strokeColorInput,
+                strokeWidthInput, topOffsetInput, bottomOffsetInput, stickerRotateInput
+            ];
+
+            inputs.forEach(input => {
+                input.addEventListener('input', () => {
+                    updateLabels();
+                    renderCanvas();
+                });
+            });
+
+            // Tab switching
+            const tabButtons = [
+                { btn: document.getElementById('tab-text-btn'), target: document.getElementById('tab-text') },
+                { btn: document.getElementById('tab-style-btn'), target: document.getElementById('tab-style') },
+                { btn: document.getElementById('tab-sticker-btn'), target: document.getElementById('tab-sticker') }
+            ];
+
+            tabButtons.forEach(({ btn, target }) => {
+                btn.addEventListener('click', () => {
+                    tabButtons.forEach(tb => {
+                        tb.btn.classList.remove('bg-white', 'text-black');
+                        tb.btn.classList.add('text-gray-700');
+                        tb.target.classList.add('hidden');
+                    });
+                    btn.classList.add('bg-white', 'text-black');
+                    btn.classList.remove('text-gray-700');
+                    target.classList.remove('hidden');
+                });
+            });
+
+            // Sticker Selection Buttons
+            document.querySelectorAll('.sticker-opt').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    selectedSticker = e.target.getAttribute('data-sticker');
+                    renderCanvas();
+                });
+            });
+
+            // Action Buttons
+            document.getElementById('btn-random').addEventListener('click', () => {
+                const randomIdx = Math.floor(Math.random() * PRESETS.length);
+                loadPreset(randomIdx, document.querySelectorAll('.preset-card')[randomIdx]);
+            });
+
+            document.getElementById('btn-clear').addEventListener('click', () => {
+                textTopInput.value = '';
+                textBottomInput.value = '';
+                textMiddleInput.value = '';
+                renderCanvas();
+            });
+
+            document.getElementById('btn-download').addEventListener('click', downloadMeme);
+
+            // Custom Image Upload
+            imageUpload.addEventListener('change', (e) => {
+                const file = e.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = (event) => loadImage(event.target.result);
+                    reader.readAsDataURL(file);
+                }
+            });
+
+            // Drag and drop handling
+            dropZone.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                dropZone.classList.add('drag-over');
+                dragHint.classList.remove('hidden');
+            });
+
+            dropZone.addEventListener('dragleave', () => {
+                dropZone.classList.remove('drag-over');
+                dragHint.classList.add('hidden');
+            });
+
+            dropZone.addEventListener('drop', (e) => {
+                e.preventDefault();
+                dropZone.classList.remove('drag-over');
+                dragHint.classList.add('hidden');
+                if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+                    const file = e.dataTransfer.files[0];
+                    if (file.type.startsWith('image/')) {
+                        const reader = new FileReader();
+                        reader.onload = (event) => loadImage(event.target.result);
+                        reader.readAsDataURL(file);
+                    }
+                }
+            });
+        }
+
+        function updateLabels() {
+            fontSizeVal.innerText = `${fontSizeInput.value}px`;
+            strokeWidthVal.innerText = `${strokeWidthInput.value}px`;
+            stickerRotVal.innerText = `${stickerRotateInput.value}°`;
+        }
+
+        function downloadMeme() {
+            try {
+                const dataURL = canvas.toDataURL('image/png');
+                const link = document.createElement('a');
+                link.download = `Y2K_Meme_${Date.now()}.png`;
+                link.href = dataURL;
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            } catch (err) {
+                console.error("Download Error: ", err);
+            }
+        }
+
+        // Initialize App on Window Load
+        window.onload = () => {
+            initPresets();
+            setupEventListeners();
+            loadPreset(0, null);
+        };
+    </script>
+</body>
 </html>
