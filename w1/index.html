@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>個人數位名片</title>
+    <!-- 引入 Font Awesome 6 用於社交圖示 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* CSS Reset & 基礎設定 */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "PingFang TC", "Microsoft JhengHei", sans-serif;
+            background: linear-gradient(135deg, #e0e0e0 0%, #f5f5f5 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            color: #1a1a1a;
+        }
+
+        /* 現代感卡片容器 */
+        .card {
+            background-color: #ffffff;
+            width: 100%;
+            max-width: 360px;
+            padding: 40px 30px;
+            border-radius: 24px;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08), 
+                        0 5px 15px rgba(0, 0, 0, 0.04);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.12), 
+                        0 8px 20px rgba(0, 0, 0, 0.06);
+        }
+
+        /* 1. 圓形大頭貼 */
+        .avatar-container {
+            position: relative;
+            width: 110px;
+            height: 110px;
+            margin: 0 auto 20px;
+        }
+
+        .avatar {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #f0f0f0;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .avatar-container:hover .avatar {
+            transform: scale(1.05);
+        }
+
+        /* 2. 姓名與簡短介紹 */
+        .name {
+            font-size: 22px;
+            font-weight: 700;
+            color: #1a1a1a;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        .bio {
+            font-size: 13px;
+            color: #666666;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        /* 3. 按鈕區塊 */
+        .btn-group {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 14px 20px;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            border: none;
+            outline: none;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        /* Instagram 按鈕：純黑高對比 */
+        .btn-instagram {
+            background-color: #1a1a1a;
+            color: #ffffff;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .btn-instagram:hover {
+            background-color: #333333;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+        }
+
+        /* Email 按鈕：深灰白底邊框 */
+        .btn-email {
+            background-color: #ffffff;
+            color: #1a1a1a;
+            border: 1.5px solid #e0e0e0;
+        }
+
+        .btn-email:hover {
+            background-color: #f8f8f8;
+            border-color: #1a1a1a;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        /* 複製提示訊息視窗 */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background-color: #1a1a1a;
+            color: #ffffff;
+            padding: 12px 24px;
+            border-radius: 30px;
+            font-size: 13px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            opacity: 0;
+            transition: all 0.3s ease;
+            pointer-events: none;
+        }
+
+        .toast.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 名片主要容器 -->
+    <div class="card">
+        <!-- 1. 圓形大頭貼照片 -->
+        <div class="avatar-container">
+            <img src="https://picsum.photos/200?grayscale" alt="個人大頭貼" class="avatar" id="avatarImg">
+        </div>
+
+        <!-- 2. 名字與一行簡短自我介紹 -->
+        <h1 class="name" id="userName">陳小明</h1>
+        <p class="bio" id="userBio">追求極簡美學與極致體驗的視覺創作者。</p>
+
+        <!-- 3. 下方兩個按鈕 (Instagram 和 Email) -->
+        <div class="btn-group">
+            <a href="https://www.instagram.com" target="_blank" class="btn btn-instagram" id="igBtn">
+                <i class="fab fa-instagram"></i> Instagram
+            </a>
+            <button class="btn btn-email" id="emailBtn" data-email="your-email@example.com">
+                <i class="fas fa-envelope"></i> Email 聯絡
+            </button>
+        </div>
+    </div>
+
+    <!-- 複製提示通知條 -->
+    <div class="toast" id="toast">已複製 Email 地址至剪貼簿！</div>
+
+    <!-- JavaScript 邏輯區塊 -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const emailBtn = document.getElementById('emailBtn');
+            const toast = document.getElementById('toast');
+
+            // 點擊 Email 按鈕時複製信箱並彈出提示
+            emailBtn.addEventListener('click', () => {
+                const email = emailBtn.getAttribute('data-email');
+                
+                // 使用傳統剪貼簿語法以提升相容性
+                const tempInput = document.createElement('input');
+                tempInput.value = email;
+                document.body.appendChild(tempInput);
+                tempInput.select();
+                document.execCommand('copy');
+                document.body.removeChild(tempInput);
+
+                // 顯示 Toast 提示訊息
+                toast.classList.add('show');
+                setTimeout(() => {
+                    toast.classList.remove('show');
+                }, 2500);
+            });
+        });
+    </script>
+</body>
+</html>
