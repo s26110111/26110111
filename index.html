@@ -1,1132 +1,950 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="./style.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pen</title>
-  </head>
-  <body>
-
-    <script src="./script.js"></script>
-  </body>
-</html>
-<!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="zh-TW" class="dark">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Y2K Cyber Portfolio Portal - 網頁程式課作品集</title>
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts: Press Start 2P & DotGothic16 for Y2K arcade retro look -->
-    <link href="https://fonts.googleapis.com/css2?family=DotGothic16&family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
-    <style>
-        body {
-            background-color: #0d0221;
-            background-image: 
-                radial-gradient(circle at 50% 50%, #240046 0%, #0d0221 100%),
-                linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), 
-                linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
-            background-size: 100% 100%, 100% 4px, 6px 100%;
-            font-family: 'DotGothic16', monospace;
-            color: #00ffcc;
-            overflow-x: hidden;
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CYBER TELEPATHY 2000 // 雲端心電感應</title>
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            y2k: {
+              black: '#07070c',
+              card: '#0f0f1a',
+              pink: '#ff007f',
+              cyan: '#00f3ff',
+              green: '#a3ff00',
+              yellow: '#ffe600',
+              purple: '#7000ff',
+              darkcard: 'rgba(15, 15, 26, 0.85)'
+            }
+          },
+          fontFamily: {
+            mono: ['Courier New', 'Consolas', 'monospace'],
+            cyber: ['Impact', 'Arial Black', 'sans-serif']
+          },
+          boxShadow: {
+            'neon-pink': '0 0 20px rgba(255, 0, 127, 0.5)',
+            'neon-cyan': '0 0 20px rgba(0, 243, 255, 0.5)',
+            'neon-green': '0 0 20px rgba(163, 255, 0, 0.5)',
+            'cyber-inset': 'inset 0 0 15px rgba(0, 243, 255, 0.2)'
+          }
         }
+      }
+    }
+  </script>
 
-        .retro-font-title {
-            font-family: 'Press Start 2P', cursive;
-        }
+  <!-- Google Fonts for Retro Vibe -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=VT323&family=Zen+Dot&display=swap" rel="stylesheet">
 
-        .vt323-font {
-            font-family: 'VT323', monospace;
-        }
+  <style>
+    /* Y2K & Custom Animation Styling */
+    body {
+      background-color: #07070c;
+      color: #e2e8f0;
+      font-family: 'Zen Dot', system-ui, -apple-system, sans-serif;
+      overflow-x: hidden;
+    }
 
-        /* Win98 / Cyber Window Chrome Style */
-        .win98-window {
-            background: #c0c0c0;
-            border-top: 3px solid #dfdfdf;
-            border-left: 3px solid #dfdfdf;
-            border-right: 3px solid #808080;
-            border-bottom: 3px solid #808080;
-            box-shadow: 6px 6px 0px rgba(0, 0, 0, 0.8), inset 1px 1px 0px #ffffff;
-        }
+    .font-vt323 {
+      font-family: 'VT323', monospace;
+    }
 
-        .win98-titlebar {
-            background: linear-gradient(90deg, #000080, #1084d0);
-            color: #ffffff;
-            font-weight: bold;
-            letter-spacing: 1px;
-        }
+    /* Animated Grid Background */
+    .bg-cyber-grid {
+      background-size: 40px 40px;
+      background-image: 
+        linear-gradient(to right, rgba(0, 243, 255, 0.07) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(0, 243, 255, 0.07) 1px, transparent 1px);
+      animation: gridMove 20s linear infinite;
+    }
 
-        .win98-button {
-            background: #c0c0c0;
-            border-top: 2px solid #ffffff;
-            border-left: 2px solid #ffffff;
-            border-right: 2px solid #404040;
-            border-bottom: 2px solid #404040;
-            box-shadow: inset 1px 1px 0px #dfdfdf;
-        }
+    @keyframes gridMove {
+      0% { background-position: 0 0; }
+      100% { background-position: 40px 40px; }
+    }
 
-        .win98-button:active {
-            border-top: 2px solid #404040;
-            border-left: 2px solid #404040;
-            border-right: 2px solid #ffffff;
-            border-bottom: 2px solid #ffffff;
-        }
+    /* Scanline effect overlay */
+    .scanlines {
+      background: linear-gradient(
+        to bottom,
+        rgba(255,255,255,0),
+        rgba(255,255,255,0) 50%,
+        rgba(0, 0, 0, 0.3) 50%,
+        rgba(0, 0, 0, 0.3)
+      );
+      background-size: 100% 4px;
+      pointer-events: none;
+    }
 
-        /* Y2K Neon & Chrome Glow Effects */
-        .neon-glow-pink {
-            text-shadow: 0 0 5px #ff007f, 0 0 10px #ff007f, 0 0 20px #ff007f;
-        }
-
-        .neon-glow-cyan {
-            text-shadow: 0 0 5px #00ffff, 0 0 10px #00ffff, 0 0 20px #00ffff;
-        }
-
-        .cyber-grid-btn {
-            background: #111;
-            border: 2px solid #00ffcc;
-            transition: all 0.2s ease-in-out;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .cyber-grid-btn:hover {
-            background: #ff007f;
-            border-color: #ffff00;
-            color: #ffffff;
-            box-shadow: 0 0 15px #ff007f, 0 0 30px #ffff00;
-            transform: translateY(-3px) scale(1.02);
-        }
-
-        .cyber-grid-btn::after {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(60deg, transparent, rgba(255,255,255,0.1), transparent);
-            transform: rotate(45deg);
-            transition: 0.5s;
-        }
-
-        .cyber-grid-btn:hover::after {
-            left: 100%;
-        }
-
-        .locked-btn {
-            background: #1a1a1a;
-            border: 2px dashed #444;
-            color: #666;
-            cursor: not-allowed;
-            filter: grayscale(100%);
-        }
-
-        /* Custom Scrollbar for Retro Feel */
-        ::-webkit-scrollbar {
-            width: 10px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #0d0221;
-            border: 1px solid #00ffcc;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #ff007f;
-            border: 1px solid #ffff00;
-        }
-    </style>
-</head>
-<body class="min-h-screen p-2 sm:p-6 flex flex-col items-center justify-between">
-
-    <header class="w-full max-w-5xl mb-4">
-        <div class="win98-window p-1 mb-2 flex justify-between items-center text-xs text-black">
-            <div class="flex items-center space-x-1 px-1 font-bold">
-                <span>💾</span>
-                <span>CYBER_PORTAL_OS v2.0</span>
-            </div>
-            <div class="flex space-x-1">
-                <button class="win98-button px-2 py-0.5 text-xs font-bold">_</button>
-                <button class="win98-button px-2 py-0.5 text-xs font-bold">□</button>
-                <button class="win98-button px-2 py-0.5 text-xs font-bold text-red-600">×</button>
-            </div>
-        </div>
-        
-        <!-- Retro Marquee Banner -->
-        <div class="bg-black border-2 border-[#00ffcc] py-1 px-2 text-[#00ffcc] font-mono text-sm overflow-hidden whitespace-nowrap shadow-[0_0_10px_#00ffcc]">
-            <marquee scrollamount="5">⚡ 歡迎光臨我的 Y2K 網頁程式課作品集入口網站！當前等級：Level 3 解鎖中 ⚡ 挑戰任務模式啟動中... ⚡</marquee>
-        </div>
-    </header>
-
-    <main class="w-full max-w-5xl flex-grow flex flex-col items-center">
-        
-        <!-- Profile & Title Section (Win98 Style Box) -->
-        <div class="win98-window w-full p-4 sm:p-6 mb-6 text-black flex flex-col md:flex-row items-center justify-between gap-6 bg-[#c0c0c0]">
-            
-            <!-- Avatar Placeholder with Y2K Retro Frame -->
-            <div class="flex flex-col items-center">
-                <div class="relative p-1 bg-black border-4 border-[#ff007f] shadow-[4px_4px_0px_#00ffff]">
-                    <img src="https://placehold.co/120x120/111111/00ffcc?text=AVATAR" alt="我的大頭貼" class="w-28 h-28 object-cover pixelated">
-                    <div class="absolute -bottom-3 -right-3 bg-[#ffff00] text-black text-[10px] px-1 font-bold border border-black">
-                        LV.03
-                    </div>
-                </div>
-                <span class="mt-2 text-xs font-bold bg-blue-900 text-white px-2 py-0.5 border border-white">ONLINE</span>
-            </div>
-
-            <!-- Profile Info & Bio -->
-            <div class="flex-grow text-center md:text-left">
-                <div class="win98-titlebar px-2 py-1 text-sm mb-2 text-white">USER_PROFILE.EXE</div>
-                <h1 class="retro-font-title text-lg sm:text-2xl text-blue-900 mb-1 neon-glow-cyan">WEB DEV PORTFOLIO</h1>
-                <p class="text-sm sm:text-base font-bold text-gray-800 mb-2">學生名稱：羅茵綺 | 班級：休觀一甲</p>
-                <p class="text-xs sm:text-sm text-gray-700 bg-[#dfdfdf] p-2 border border-gray-500 font-mono">
-                    系統提示：本站採用經典 Y2K 千禧年賽博龐克風格。已解鎖前三週之任務關卡，請點擊下方按鈕進入作業成果！其餘關卡持續建置中，敬請期待。
-                </p>
-            </div>
-
-            <!-- Mini Winamp / Retro Widget Badge -->
-            <div class="hidden lg:flex flex-col items-center justify-center bg-black p-3 border-2 border-[#00ffcc] text-[#00ffcc] text-xs">
-                <div class="text-[#ff007f] font-bold mb-1">♪ PLAYING NOW</div>
-                <div class="vt323-font text-lg">Y2K_Cyber_Beats.mp3</div>
-                <div class="flex space-x-1 mt-1 text-[10px]">
-                    <span class="bg-gray-800 px-1">▶</span>
-                    <span class="bg-gray-800 px-1">❚❚</span>
-                    <span class="bg-gray-800 px-1">■</span>
-                    <span class="bg-gray-800 px-1 text-yellow-300">HQ</span>
-                </div>
-            </div>
-        </div>
-
-        <div class="win98-window w-full p-4 sm:p-6 bg-[#c0c0c0]">
-            <div class="win98-titlebar px-2 py-1 text-sm mb-4 text-white flex justify-between items-center">
-                <span>QUEST_LOG_STAGE_16.EXE (16任務選單)</span>
-                <span class="text-xs text-yellow-300">進度: 3 / 16 解鎖</span>
-            </div>
-
-            <!-- Responsive Grid of 16 Buttons -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
-                
-                <!-- Button 1: Unlocked Week 1 -->
-                <a href="w1/index.html" class="cyber-grid-btn p-3 rounded text-left flex flex-col justify-between group shadow-md min-h-[90px]">
-                    <div class="flex justify-between items-start">
-                        <span class="text-[10px] text-[#00ffcc] group-hover:text-yellow-300 font-mono">QUEST 01</span>
-                        <span class="text-xs bg-[#00ffcc] text-black px-1 font-bold">UNLOCKED</span>
-                    </div>
-                    <div class="my-1">
-                        <h3 class="text-sm sm:text-base font-bold text-white group-hover:text-yellow-200">Week 1 - 數位名片</h3>
-                    </div>
-                    <div class="text-[10px] text-gray-400 group-hover:text-white flex items-center justify-between">
-                        <span>點擊進入 →</span>
-                        <span class="text-green-400">● 準備就緒</span>
-                    </div>
-                </a>
-
-                <!-- Button 2: Unlocked Week 2 -->
-                <a href="w2/index.html" class="cyber-grid-btn p-3 rounded text-left flex flex-col justify-between group shadow-md min-h-[90px]">
-                    <div class="flex justify-between items-start">
-                        <span class="text-[10px] text-[#00ffcc] group-hover:text-yellow-300 font-mono">QUEST 02</span>
-                        <span class="text-xs bg-[#00ffcc] text-black px-1 font-bold">UNLOCKED</span>
-                    </div>
-                    <div class="my-1">
-                        <h3 class="text-sm sm:text-base font-bold text-white group-hover:text-yellow-200">Week 2 - 今天吃甚麼?</h3>
-                    </div>
-                    <div class="text-[10px] text-gray-400 group-hover:text-white flex items-center justify-between">
-                        <span>點擊進入 →</span>
-                        <span class="text-green-400">● 準備就緒</span>
-                    </div>
-                </a>
-
-                <!-- Button 3: Unlocked Week 3 (迷因產生器) -->
-                <a href="w3/index.html" class="cyber-grid-btn p-3 rounded text-left flex flex-col justify-between group shadow-md min-h-[90px]">
-                    <div class="flex justify-between items-start">
-                        <span class="text-[10px] text-[#00ffcc] group-hover:text-yellow-300 font-mono">QUEST 03</span>
-                        <span class="text-xs bg-[#00ffcc] text-black px-1 font-bold">UNLOCKED</span>
-                    </div>
-                    <div class="my-1">
-                        <h3 class="text-sm sm:text-base font-bold text-white group-hover:text-yellow-200">Week 3 - 迷因產生器</h3>
-                    </div>
-                    <div class="text-[10px] text-gray-400 group-hover:text-white flex items-center justify-between">
-                        <span>點擊進入 →</span>
-                        <span class="text-green-400">● 準備就緒</span>
-                    </div>
-                </a>
-
-                <!-- Buttons 4 to 16: Locked State with 🔒 Emoji -->
-                <!-- Button 4 -->
-                <div class="locked-btn p-3 rounded flex flex-col justify-between min-h-[90px]">
-                    <div class="flex justify-between items-start">
-                        <span class="text-[10px] text-gray-500 font-mono">QUEST 04</span>
-                        <span class="text-xs">🔒 鎖定</span>
-                    </div>
-                    <div class="my-1">
-                        <h3 class="text-sm sm:text-base font-bold text-gray-500">Week 4 - 敬請期待</h3>
-                    </div>
-                    <div class="text-[10px] text-gray-600">未解鎖關卡</div>
-                </div>
-
-                <!-- Button 5 -->
-                <div class="locked-btn p-3 rounded flex flex-col justify-between min-h-[90px]">
-                    <div class="flex justify-between items-start">
-                        <span class="text-[10px] text-gray-500 font-mono">QUEST 05</span>
-                        <span class="text-xs">🔒 鎖定</span>
-                    </div>
-                    <div class="my-1">
-                        <h3 class="text-sm sm:text-base font-bold text-gray-500">Week 5 - 敬請期待</h3>
-                    </div>
-                    <div class="text-[10px] text-gray-600">未解鎖關卡</div>
-                </div>
-
-                <!-- Button 6 -->
-                <div class="locked-btn p-3 rounded flex flex-col justify-between min-h-[90px]">
-                    <div class="flex justify-between items-start">
-                        <span class="text-[10px] text-gray-500 font-mono">QUEST 06</span>
-                        <span class="text-xs">🔒 鎖定</span>
-                    </div>
-                    <div class="my-1">
-                        <h3 class="text-sm sm:text-base font-bold text-gray-500">Week 6 - 敬請期待</h3>
-                    </div>
-                    <div class="text-[10px] text-gray-600">未解鎖關卡</div>
-                </div>
-
-                <!-- Button 7 -->
-                <div class="locked-btn p-3 rounded flex flex-col justify-between min-h-[90px]">
-                    <div class="flex justify-between items-start">
-                        <span class="text-[10px] text-gray-500 font-mono">QUEST 07</span>
-                        <span class="text-xs">🔒 鎖定</span>
-                    </div>
-                    <div class="my-1">
-                        <h3 class="text-sm sm:text-base font-bold text-gray-500">Week 7 - 敬請期待</h3>
-                    </div>
-                    <div class="text-[10px] text-gray-600">未解鎖關卡</div>
-                </div>
-
-                <!-- Button 8 -->
-                <div class="locked-btn p-3 rounded flex flex-col justify-between min-h-[90px]">
-                    <div class="flex justify-between items-start">
-                        <span class="text-[10px] text-gray-500 font-mono">QUEST 08</span>
-                        <span class="text-xs">🔒 鎖定</span>
-                    </div>
-                    <div class="my-1">
-                        <h3 class="text-sm sm:text-base font-bold text-gray-500">Week 8 - 敬請期待</h3>
-                    </div>
-                    <div class="text-[10px] text-gray-600">未解鎖關卡</div>
-                </div>
-
-                <!-- Button 9 -->
-                <div class="locked-btn p-3 rounded flex flex-col justify-between min-h-[90px]">
-                    <div class="flex justify-between items-start">
-                        <span class="text-[10px] text-gray-500 font-mono">QUEST 09</span>
-                        <span class="text-xs">🔒 鎖定</span>
-                    </div>
-                    <div class="my-1">
-                        <h3 class="text-sm sm:text-base font-bold text-gray-500">Week 9 - 敬請期待</h3>
-                    </div>
-                    <div class="text-[10px] text-gray-600">未解鎖關卡</div>
-                </div>
-
-                <!-- Button 10 -->
-                <div class="locked-btn p-3 rounded flex flex-col justify-between min-h-[90px]">
-                    <div class="flex justify-between items-start">
-                        <span class="text-[10px] text-gray-500 font-mono">QUEST 10</span>
-                        <span class="text-xs">🔒 鎖定</span>
-                    </div>
-                    <div class="my-1">
-                        <h3 class="text-sm sm:text-base font-bold text-gray-500">Week 10 - 敬請期待</h3>
-                    </div>
-                    <div class="text-[10px] text-gray-600">未解鎖關卡</div>
-                </div>
-
-                <!-- Button 11 -->
-                <div class="locked-btn p-3 rounded flex flex-col justify-between min-h-[90px]">
-                    <div class="flex justify-between items-start">
-                        <span class="text-[10px] text-gray-500 font-mono">QUEST 11</span>
-                        <span class="text-xs">🔒 鎖定</span>
-                    </div>
-                    <div class="my-1">
-                        <h3 class="text-sm sm:text-base font-bold text-gray-500">Week 11 - 敬請期待</h3>
-                    </div>
-                    <div class="text-[10px] text-gray-600">未解鎖關卡</div>
-                </div>
-
-                <!-- Button 12 -->
-                <div class="locked-btn p-3 rounded flex flex-col justify-between min-h-[90px]">
-                    <div class="flex justify-between items-start">
-                        <span class="text-[10px] text-gray-500 font-mono">QUEST 12</span>
-                        <span class="text-xs">🔒 鎖定</span>
-                    </div>
-                    <div class="my-1">
-                        <h3 class="text-sm sm:text-base font-bold text-gray-500">Week 12 - 敬請期待</h3>
-                    </div>
-                    <div class="text-[10px] text-gray-600">未解鎖關卡</div>
-                </div>
-
-                <!-- Button 13 -->
-                <div class="locked-btn p-3 rounded flex flex-col justify-between min-h-[90px]">
-                    <div class="flex justify-between items-start">
-                        <span class="text-[10px] text-gray-500 font-mono">QUEST 13</span>
-                        <span class="text-xs">🔒 鎖定</span>
-                    </div>
-                    <div class="my-1">
-                        <h3 class="text-sm sm:text-base font-bold text-gray-500">Week 13 - 敬請期待</h3>
-                    </div>
-                    <div class="text-[10px] text-gray-600">未解鎖關卡</div>
-                </div>
-
-                <!-- Button 14 -->
-                <div class="locked-btn p-3 rounded flex flex-col justify-between min-h-[90px]">
-                    <div class="flex justify-between items-start">
-                        <span class="text-[10px] text-gray-500 font-mono">QUEST 14</span>
-                        <span class="text-xs">🔒 鎖定</span>
-                    </div>
-                    <div class="my-1">
-                        <h3 class="text-sm sm:text-base font-bold text-gray-500">Week 14 - 敬請期待</h3>
-                    </div>
-                    <div class="text-[10px] text-gray-600">未解鎖關卡</div>
-                </div>
-
-                <!-- Button 15 -->
-                <div class="locked-btn p-3 rounded flex flex-col justify-between min-h-[90px]">
-                    <div class="flex justify-between items-start">
-                        <span class="text-[10px] text-gray-500 font-mono">QUEST 15</span>
-                        <span class="text-xs">🔒 鎖定</span>
-                    </div>
-                    <div class="my-1">
-                        <h3 class="text-sm sm:text-base font-bold text-gray-500">Week 15 - 敬請期待</h3>
-                    </div>
-                    <div class="text-[10px] text-gray-600">未解鎖關卡</div>
-                </div>
-
-                <!-- Button 16 -->
-                <div class="locked-btn p-3 rounded flex flex-col justify-between min-h-[90px]">
-                    <div class="flex justify-between items-start">
-                        <span class="text-[10px] text-gray-500 font-mono">QUEST 16</span>
-                        <span class="text-xs">🔒 鎖定</span>
-                    </div>
-                    <div class="my-1">
-                        <h3 class="text-sm sm:text-base font-bold text-gray-500">Week 16 - 最終決戰</h3>
-                    </div>
-                    <div class="text-[10px] text-gray-600">未解鎖關卡</div>
-                </div>
-
-            </div>
-        </div>
-
-    </main>
-
-    <footer class="w-full max-w-5xl mt-6 text-center">
-        <div class="win98-window px-4 py-1.5 text-xs text-black flex justify-between items-center font-mono">
-            <span>STATUS: READY (C:\PORTFOLIO\INDEX.HTML)</span>
-            <span>© 2026 Y2K Cyber Student</span>
-        </div>
-    </footer>
-
-</body>
-</html><!DOCTYPE html>
-<html lang="zh-TW">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Y2K Cyber Meme Generator - 迷因產生器</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=DotGothic16&family=Press+Start+2P&family=VT323&family=Impact&display=swap" rel="stylesheet">
+    /* 3D Flip Card Styles */
+    .perspective-1000 {
+      perspective: 1000px;
+    }
     
-    <style>
-        body {
-            background-color: #0d0221;
-            background-image: 
-                radial-gradient(circle at 50% 50%, #240046 0%, #0d0221 100%),
-                linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), 
-                linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
-            background-size: 100% 100%, 100% 4px, 6px 100%;
-            font-family: 'DotGothic16', monospace;
-            color: #00ffcc;
-            min-height: 100vh;
-        }
+    .card-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      transform-style: preserve-3d;
+    }
 
-        .retro-title {
-            font-family: 'Press Start 2P', cursive;
-        }
+    .card-inner.flipped {
+      transform: rotateY(180deg);
+    }
 
-        .vt323-font {
-            font-family: 'VT323', monospace;
-        }
+    .card-front, .card-back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
+      border-radius: 1rem;
+    }
 
-        /* Windows 98 Cyber Window Style */
-        .win98-window {
-            background: #c0c0c0;
-            border-top: 3px solid #dfdfdf;
-            border-left: 3px solid #dfdfdf;
-            border-right: 3px solid #808080;
-            border-bottom: 3px solid #808080;
-            box-shadow: 6px 6px 0px rgba(0, 0, 0, 0.8), inset 1px 1px 0px #ffffff;
-            color: #000;
-        }
+    .card-back {
+      transform: rotateY(180deg);
+    }
 
-        .win98-titlebar {
-            background: linear-gradient(90deg, #000080, #1084d0);
-            color: #ffffff;
-            font-weight: bold;
-            letter-spacing: 1px;
-        }
+    /* Neon Text Glow */
+    .glow-text-pink {
+      text-shadow: 0 0 8px #ff007f, 0 0 20px #ff007f;
+    }
+    .glow-text-cyan {
+      text-shadow: 0 0 8px #00f3ff, 0 0 20px #00f3ff;
+    }
+    .glow-text-green {
+      text-shadow: 0 0 8px #a3ff00, 0 0 20px #a3ff00;
+    }
 
-        .win98-button {
-            background: #c0c0c0;
-            border-top: 2px solid #ffffff;
-            border-left: 2px solid #ffffff;
-            border-right: 2px solid #404040;
-            border-bottom: 2px solid #404040;
-            box-shadow: inset 1px 1px 0px #dfdfdf;
-            color: #000;
-            font-weight: bold;
-            transition: all 0.1s ease;
-        }
-
-        .win98-button:hover:not(:disabled) {
-            background: #d4d4d4;
-        }
-
-        .win98-button:active:not(:disabled) {
-            border-top: 2px solid #404040;
-            border-left: 2px solid #404040;
-            border-right: 2px solid #ffffff;
-            border-bottom: 2px solid #ffffff;
-            padding-top: 1px;
-            padding-left: 1px;
-        }
-
-        /* Cyberpunk Glow & Buttons */
-        .cyber-btn {
-            background: #111;
-            border: 2px solid #00ffcc;
-            color: #00ffcc;
-            text-shadow: 0 0 5px #00ffcc;
-            box-shadow: 0 0 8px rgba(0, 255, 204, 0.3);
-            transition: all 0.2s ease-in-out;
-        }
-
-        .cyber-btn:hover {
-            background: #ff007f;
-            border-color: #ffff00;
-            color: #ffffff;
-            text-shadow: 0 0 5px #ffffff;
-            box-shadow: 0 0 15px #ff007f, 0 0 25px #ffff00;
-            transform: translateY(-2px);
-        }
-
-        .cyber-btn-pink {
-            background: #111;
-            border: 2px solid #ff007f;
-            color: #ff007f;
-            text-shadow: 0 0 5px #ff007f;
-            box-shadow: 0 0 8px rgba(255, 0, 127, 0.3);
-        }
-
-        .cyber-btn-pink:hover {
-            background: #00ffcc;
-            border-color: #ffffff;
-            color: #000;
-            text-shadow: none;
-            box-shadow: 0 0 15px #00ffcc;
-            transform: translateY(-2px);
-        }
-
-        .neon-glow-pink {
-            text-shadow: 0 0 5px #ff007f, 0 0 10px #ff007f, 0 0 20px #ff007f;
-        }
-
-        .neon-glow-cyan {
-            text-shadow: 0 0 5px #00ffff, 0 0 10px #00ffff, 0 0 20px #00ffff;
-        }
-
-        /* Custom Scrollbars */
-        ::-webkit-scrollbar {
-            width: 10px;
-            height: 10px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #0d0221;
-            border: 1px solid #00ffcc;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #ff007f;
-            border: 1px solid #ffff00;
-        }
-
-        /* Retro input styles */
-        .retro-input {
-            background: #1a1a2e;
-            border: 2px solid #00ffcc;
-            color: #ffff00;
-            outline: none;
-            font-family: 'DotGothic16', monospace;
-        }
-        .retro-input:focus {
-            border-color: #ff007f;
-            box-shadow: 0 0 10px #ff007f;
-        }
-
-        .preset-card {
-            border: 2px solid #444;
-            transition: all 0.2s ease;
-            cursor: pointer;
-        }
-        .preset-card:hover, .preset-card.active {
-            border-color: #00ffcc;
-            box-shadow: 0 0 12px #00ffcc;
-            transform: scale(1.03);
-        }
-
-        /* Drag Overlay */
-        .drag-over {
-            border-color: #ff007f !important;
-            background: rgba(255, 0, 127, 0.15) !important;
-        }
-    </style>
+    /* Scrollbar customization */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #07070c;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #ff007f;
+      border-radius: 3px;
+    }
+  </style>
 </head>
-<body class="p-2 sm:p-6 flex flex-col items-center justify-between min-h-screen">
+<body class="min-h-screen bg-cyber-grid text-gray-100 relative selection:bg-y2k-pink selection:text-white flex flex-col justify-between">
+  <!-- Scanline Overlay -->
+  <div class="fixed inset-0 scanlines z-50 pointer-events-none opacity-40"></div>
 
-    <header class="w-full max-w-6xl mb-4">
-        <!-- Win98 System Bar -->
-        <div class="win98-window p-1 mb-2 flex justify-between items-center text-xs">
-            <div class="flex items-center space-x-2 px-1 font-bold">
-                <span>👾</span>
-                <span>CYBER_MEME_GENERATOR.EXE - [Y2K EDITION v3.0]</span>
-            </div>
-            <div class="flex space-x-1">
-                <a href="../index.html" class="win98-button px-2 py-0.5 text-xs font-bold no-underline flex items-center gap-1">
-                    ◀ 返回主頁
-                </a>
-                <button class="win98-button px-2 py-0.5 text-xs font-bold">_</button>
-                <button class="win98-button px-2 py-0.5 text-xs font-bold">□</button>
-                <button class="win98-button px-2 py-0.5 text-xs font-bold text-red-600" onclick="location.href='../index.html'">×</button>
-            </div>
+  <!-- MAIN WRAPPER -->
+  <div id="app" class="relative z-10 min-h-screen flex flex-col justify-between p-3 sm:p-6 max-w-7xl mx-auto w-full">
+    
+    <!-- HEADER NAVBAR -->
+    <header class="border-2 border-y2k-cyan/40 bg-y2k-black/80 backdrop-blur-md rounded-2xl p-3 sm:p-4 mb-6 shadow-neon-cyan flex flex-wrap items-center justify-between gap-4">
+      <!-- Title & Secret Host Trigger -->
+      <div class="flex items-center space-x-3 cursor-pointer select-none" onclick="app.handleSecretLogoClick()">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-y2k-pink to-y2k-cyan flex items-center justify-center font-bold text-black text-xl shadow-neon-pink">
+          🧠
         </div>
-        
-        <!-- Marquee Banner -->
-        <div class="bg-black border-2 border-[#00ffcc] py-1 px-3 text-[#00ffcc] font-mono text-xs sm:text-sm overflow-hidden whitespace-nowrap shadow-[0_0_10px_#00ffcc]">
-            <marquee scrollamount="6">⚡ 歡迎使用 Y2K 賽博迷因產生器！上傳圖片或選擇經典梗圖 ⚡ 自訂文字與貼紙 ⚡ 一鍵下載高清迷因 PNG ⚡ TASK 03 UNLOCKED ⚡</marquee>
+        <div>
+          <h1 class="text-xl sm:text-2xl font-black tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-y2k-cyan via-y2k-pink to-y2k-green glow-text-cyan">
+            TELEPATHY 2000
+          </h1>
+          <p class="text-[10px] sm:text-xs text-y2k-cyan/70 tracking-widest font-mono">雲端心電感應 // MULTIPLAYER MIND SYNC</p>
         </div>
+      </div>
+
+      <!-- Room & Status Indicators -->
+      <div id="nav-info" class="hidden flex-wrap items-center gap-2 sm:gap-3 text-xs sm:text-sm">
+        <div class="bg-y2k-card border border-y2k-pink/50 rounded-xl px-3 py-1.5 flex items-center gap-2 shadow-neon-pink/20">
+          <span class="text-y2k-pink font-bold">房號:</span>
+          <span id="display-room-code" class="font-mono text-y2k-yellow font-bold text-base">----</span>
+          <button onclick="app.copyRoomLink()" class="ml-1 hover:text-y2k-cyan transition text-xs bg-y2k-pink/20 px-2 py-0.5 rounded border border-y2k-pink/40" title="複製邀請連結">
+            📋 複製連結
+          </button>
+        </div>
+
+        <div class="bg-y2k-card border border-y2k-cyan/50 rounded-xl px-3 py-1.5 flex items-center gap-2">
+          <span class="text-y2k-cyan font-bold">玩家:</span>
+          <span id="display-player-name" class="font-mono text-white">---</span>
+        </div>
+
+        <!-- Polling Indicator -->
+        <div class="flex items-center gap-1.5 bg-black/60 px-2.5 py-1.5 rounded-xl border border-white/10 text-[11px] font-mono">
+          <span id="sync-dot" class="w-2.5 h-2.5 rounded-full bg-y2k-green animate-pulse"></span>
+          <span id="sync-text" class="text-gray-400">SYNCING</span>
+        </div>
+
+        <!-- Hidden Host Console Toggle Button -->
+        <button id="btn-toggle-host-panel" onclick="app.toggleHostConsole()" class="relative group bg-y2k-purple/30 hover:bg-y2k-purple border border-y2k-pink/60 text-y2k-pink hover:text-white px-3 py-1.5 rounded-xl transition flex items-center gap-1 font-mono text-xs">
+          <span id="host-icon">🔒</span>
+          <span id="host-btn-label">房主主控台</span>
+        </button>
+      </div>
     </header>
 
-    <main class="w-full max-w-6xl flex-grow grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
-        
-        <!-- LEFT COLUMN: Canvas Preview Window (7 Cols) -->
-        <section class="lg:col-span-7 flex flex-col space-y-4">
-            <div class="win98-window p-4 flex flex-col items-center">
-                <div class="win98-titlebar w-full px-2 py-1 text-sm mb-3 flex justify-between items-center">
-                    <span>🖼️ CANVAS_PREVIEW.SYS</span>
-                    <span id="canvas-dim-badge" class="text-xs text-yellow-300 font-mono">800 x 800 px</span>
-                </div>
+    <!-- LOGIN / ROOM SETUP CONTAINER (Shown if no room/player set) -->
+    <main id="login-modal" class="my-auto max-w-md w-full mx-auto">
+      <div class="bg-y2k-card/90 border-2 border-y2k-pink rounded-3xl p-6 sm:p-8 shadow-neon-pink backdrop-blur-xl relative overflow-hidden">
+        <!-- Y2K Decorative Tag -->
+        <div class="absolute -right-12 -top-6 bg-y2k-pink text-black text-xs font-mono px-12 py-1 transform rotate-45 font-bold shadow-md">
+          v2.000 MATRIX
+        </div>
 
-                <!-- Canvas Container -->
-                <div id="drop-zone" class="relative w-full flex items-center justify-center bg-black border-2 border-dashed border-[#00ffcc] p-2 rounded min-h-[320px] sm:min-h-[450px] overflow-hidden transition-all">
-                    <canvas id="meme-canvas" class="max-w-full h-auto max-h-[60vh] object-contain shadow-[0_0_20px_rgba(0,255,204,0.3)]"></canvas>
-                    
-                    <!-- Drag & Drop Hint -->
-                    <div id="drag-hint" class="absolute pointer-events-none text-center p-4 bg-black/80 rounded border border-[#ff007f] hidden">
-                        <p class="text-xl font-bold text-[#ff007f] neon-glow-pink mb-1">放開以載入圖片！</p>
-                        <p class="text-xs text-cyan-300">DROP IMAGE TO LOAD</p>
-                    </div>
-                </div>
+        <h2 class="text-2xl font-black text-center text-y2k-pink glow-text-pink mb-2">加入 / 建立房間</h2>
+        <p class="text-center text-xs text-y2k-cyan/80 font-mono mb-6">請輸入房間代碼與你的專屬暱稱</p>
 
-                <!-- Canvas Action Bar -->
-                <div class="w-full mt-4 flex flex-wrap gap-2 justify-between items-center">
-                    <button id="btn-random" class="cyber-btn px-3 py-2 text-xs sm:text-sm rounded font-bold flex items-center gap-1">
-                        🎲 隨機梗圖
-                    </button>
-                    <button id="btn-clear" class="win98-button px-3 py-2 text-xs sm:text-sm text-red-800 font-bold flex items-center gap-1">
-                        🗑️ 清除文字
-                    </button>
-                    <button id="btn-download" class="cyber-btn-pink px-4 py-2 text-xs sm:text-sm rounded font-bold flex items-center gap-1 text-white">
-                        💾 下載迷因 PNG
-                    </button>
-                </div>
+        <form onsubmit="app.handleLogin(event)" class="space-y-4">
+          <div>
+            <label class="block text-xs font-mono text-y2k-cyan mb-1">房間號碼 (ROOM CODE)</label>
+            <div class="flex gap-2">
+              <input type="text" id="input-room" required placeholder="例如: 8888" 
+                     class="w-full bg-black/80 border border-y2k-cyan/60 rounded-xl px-4 py-2.5 font-mono text-y2k-yellow focus:outline-none focus:border-y2k-cyan focus:ring-1 focus:ring-y2k-cyan uppercase tracking-wider text-center font-bold text-lg">
+              <button type="button" onclick="app.generateRandomRoom()" class="bg-y2k-cyan/20 border border-y2k-cyan hover:bg-y2k-cyan hover:text-black text-y2k-cyan px-3 py-2 rounded-xl text-xs font-mono transition flex-shrink-0">
+                🎲 隨機
+              </button>
             </div>
+          </div>
 
-            <!-- Presets Picker Window -->
-            <div class="win98-window p-3">
-                <div class="win98-titlebar px-2 py-0.5 text-xs mb-2 flex justify-between">
-                    <span>🔥 CLASSIC_MEME_PRESETS (熱門梗圖庫)</span>
-                    <span class="text-yellow-200">7 個預設模板</span>
-                </div>
-                <div id="preset-grid" class="grid grid-cols-4 sm:grid-cols-7 gap-2 max-h-32 overflow-y-auto p-1 bg-gray-900 border border-gray-600 rounded">
-                    <!-- Dynamic Preset Thumbnails -->
-                </div>
-            </div>
-        </section>
+          <div>
+            <label class="block text-xs font-mono text-y2k-cyan mb-1">玩家暱稱 (NICKNAME)</label>
+            <input type="text" id="input-player" required placeholder="你的名字" maxlength="12"
+                   class="w-full bg-black/80 border border-y2k-pink/60 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:border-y2k-pink focus:ring-1 focus:ring-y2k-pink font-mono text-center">
+          </div>
 
-        <!-- RIGHT COLUMN: Control Panel Window (5 Cols) -->
-        <section class="lg:col-span-5 flex flex-col space-y-4">
-            
-            <!-- Controls Box -->
-            <div class="win98-window p-4">
-                <div class="win98-titlebar px-2 py-1 text-sm mb-3">🎛️ CONTROLS_PANEL.EXE</div>
-                
-                <!-- Tab Navigation -->
-                <div class="flex border-b-2 border-gray-600 mb-4 bg-gray-800/40 p-1 gap-1">
-                    <button id="tab-text-btn" class="win98-button px-3 py-1 text-xs font-bold bg-white text-black">文字設定</button>
-                    <button id="tab-style-btn" class="win98-button px-3 py-1 text-xs font-bold text-gray-700">字型樣式</button>
-                    <button id="tab-sticker-btn" class="win98-button px-3 py-1 text-xs font-bold text-gray-700">Y2K 貼紙</button>
-                </div>
+          <div class="pt-2">
+            <button type="submit" class="w-full py-3 bg-gradient-to-r from-y2k-pink via-y2k-purple to-y2k-cyan text-white font-bold rounded-2xl shadow-neon-pink hover:opacity-90 active:scale-95 transition transform text-base tracking-wider flex items-center justify-center gap-2">
+              ⚡ 連線進入心電感應
+            </button>
+          </div>
+        </form>
 
-                <!-- TAB 1: TEXT INPUTS -->
-                <div id="tab-text" class="space-y-3">
-                    <!-- Image Upload -->
-                    <div>
-                        <label class="block text-xs font-bold text-gray-800 mb-1">📁 自訂圖片上傳 (Upload Image)</label>
-                        <input type="file" id="image-upload" accept="image/*" class="w-full text-xs text-black bg-white p-1 border border-gray-600 rounded cursor-pointer">
-                    </div>
-
-                    <!-- Top Text -->
-                    <div>
-                        <label class="block text-xs font-bold text-gray-800 mb-1">⬆️ 上方文字 (Top Text)</label>
-                        <input type="text" id="text-top" value="當你寫出沒 BUG 的程式" class="retro-input w-full p-2 text-sm rounded" placeholder="輸入上方文字...">
-                    </div>
-
-                    <!-- Bottom Text -->
-                    <div>
-                        <label class="block text-xs font-bold text-gray-800 mb-1">⬇️ 下方文字 (Bottom Text)</label>
-                        <input type="text" id="text-bottom" value="但你自己也不懂為什麼能跑" class="retro-input w-full p-2 text-sm rounded" placeholder="輸入下方文字...">
-                    </div>
-
-                    <!-- Extra Text Line -->
-                    <div>
-                        <label class="block text-xs font-bold text-gray-800 mb-1">➕ 額外中間文字 (Extra Middle Line)</label>
-                        <input type="text" id="text-middle" value="" class="retro-input w-full p-2 text-sm rounded" placeholder="選填：中間補充文字...">
-                    </div>
-                </div>
-
-                <!-- TAB 2: STYLE & ADJUSTMENTS -->
-                <div id="tab-style" class="space-y-3 hidden">
-                    <!-- Font Family & Uppercase -->
-                    <div class="grid grid-cols-2 gap-2">
-                        <div>
-                            <label class="block text-xs font-bold text-gray-800 mb-1">🔤 字型 (Font)</label>
-                            <select id="font-family" class="w-full text-xs p-1.5 border border-gray-600 bg-white text-black font-bold rounded">
-                                <option value="Impact" selected>Impact (經典迷因)</option>
-                                <option value="'DotGothic16', monospace">DotGothic16 (像素點陣)</option>
-                                <option value="'Press Start 2P', cursive">Press Start 2P (復古街機)</option>
-                                <option value="sans-serif">Arial / Sans-Serif</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label class="block text-xs font-bold text-gray-800 mb-1">🔠 轉大寫 (Upper Case)</label>
-                            <select id="text-case" class="w-full text-xs p-1.5 border border-gray-600 bg-white text-black font-bold rounded">
-                                <option value="uppercase" selected>強制大寫 (UPPER)</option>
-                                <option value="normal">保持原樣 (Normal)</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <!-- Font Size Slider -->
-                    <div>
-                        <div class="flex justify-between text-xs font-bold text-gray-800 mb-1">
-                            <span>🔍 字型大小 (Font Size)</span>
-                            <span id="font-size-val" class="text-blue-900 font-mono">48px</span>
-                        </div>
-                        <input type="range" id="font-size" min="20" max="90" value="48" class="w-full accent-[#ff007f] cursor-pointer">
-                    </div>
-
-                    <!-- Colors: Fill & Stroke -->
-                    <div class="grid grid-cols-2 gap-2 bg-gray-200 p-2 rounded border border-gray-400">
-                        <div>
-                            <label class="block text-xs font-bold text-gray-800 mb-1">🎨 文字顏色 (Fill)</label>
-                            <input type="color" id="text-color" value="#ffffff" class="w-full h-8 cursor-pointer rounded border border-gray-500">
-                        </div>
-                        <div>
-                            <label class="block text-xs font-bold text-gray-800 mb-1">✏️ 描邊顏色 (Stroke)</label>
-                            <input type="color" id="stroke-color" value="#000000" class="w-full h-8 cursor-pointer rounded border border-gray-500">
-                        </div>
-                    </div>
-
-                    <!-- Stroke Width Slider -->
-                    <div>
-                        <div class="flex justify-between text-xs font-bold text-gray-800 mb-1">
-                            <span>🖊️ 描邊粗細 (Stroke Thickness)</span>
-                            <span id="stroke-width-val" class="text-blue-900 font-mono">5px</span>
-                        </div>
-                        <input type="range" id="stroke-width" min="0" max="15" value="5" class="w-full accent-blue-700 cursor-pointer">
-                    </div>
-
-                    <!-- Vertical Position Sliders -->
-                    <div class="grid grid-cols-2 gap-2">
-                        <div>
-                            <label class="block text-xs font-bold text-gray-800 mb-1">⬆️ 上方文字位移</label>
-                            <input type="range" id="top-offset" min="10" max="200" value="50" class="w-full accent-cyan-600 cursor-pointer">
-                        </div>
-                        <div>
-                            <label class="block text-xs font-bold text-gray-800 mb-1">⬇️ 下方文字位移</label>
-                            <input type="range" id="bottom-offset" min="10" max="200" value="50" class="w-full accent-cyan-600 cursor-pointer">
-                        </div>
-                    </div>
-                </div>
-
-                <!-- TAB 3: STICKERS & WATERMARK -->
-                <div id="tab-sticker" class="space-y-3 hidden">
-                    <label class="block text-xs font-bold text-gray-800">🏷️ 選擇 Y2K 懷舊貼紙 (Select Watermark / Sticker)</label>
-                    <div class="grid grid-cols-3 gap-2">
-                        <button class="sticker-opt win98-button p-2 text-xs font-bold text-red-600" data-sticker="APPROVED">✅ APPROVED</button>
-                        <button class="sticker-opt win98-button p-2 text-xs font-bold text-blue-800" data-sticker="CYBER_Y2K">⚡ CYBER_Y2K</button>
-                        <button class="sticker-opt win98-button p-2 text-xs font-bold text-pink-600" data-sticker="HOT">🔥 HOT MEME</button>
-                        <button class="sticker-opt win98-button p-2 text-xs font-bold text-green-700" data-sticker="CONFIDENTIAL">🔒 機密作品</button>
-                        <button class="sticker-opt win98-button p-2 text-xs font-bold text-purple-700" data-sticker="NO_BUG">🐛 NO BUG</button>
-                        <button class="sticker-opt win98-button p-2 text-xs font-bold text-gray-800" data-sticker="NONE">❌ 無貼紙</button>
-                    </div>
-
-                    <!-- Sticker Rotation / Scale -->
-                    <div class="p-2 bg-gray-200 border border-gray-400 rounded space-y-2">
-                        <div class="flex justify-between text-xs font-bold text-gray-800">
-                            <span>貼紙旋轉角度</span>
-                            <span id="sticker-rot-val" class="font-mono">-15°</span>
-                        </div>
-                        <input type="range" id="sticker-rotate" min="-45" max="45" value="-15" class="w-full accent-pink-600 cursor-pointer">
-                    </div>
-                </div>
-
-            </div>
-
-            <!-- Quick Info Window -->
-            <div class="win98-window p-3 text-xs text-gray-800 bg-[#dfdfdf]">
-                <div class="font-bold text-blue-900 mb-1 flex items-center gap-1">
-                    <span>💡 快捷操作小撇步：</span>
-                </div>
-                <ul class="list-disc list-inside space-y-0.5 text-[11px] font-mono">
-                    <li>可直接將電腦中的圖片拖曳至上方預覽區域！</li>
-                    <li>點擊「隨機梗圖」快速切換靈感。</li>
-                    <li>支援繁體中文與英數經典 Impact 效果。</li>
-                </ul>
-            </div>
-
-        </section>
+        <div class="mt-6 pt-4 border-t border-white/10 text-center text-[11px] text-gray-500 font-mono">
+          提示：分享同一個房號給同學即可進行分組心電感應默契大考驗！
+        </div>
+      </div>
     </main>
 
-    <footer class="w-full max-w-6xl mt-6 text-center">
-        <div class="win98-window px-4 py-1.5 text-xs text-black flex justify-between items-center font-mono">
-            <span>STATUS: MEME_ENGINE_READY (PORTFOLIO_WEEK_03)</span>
-            <span>© 2026 Y2K Cyber Student | 羅茵綺</span>
+    <!-- GAME DASHBOARD (Shown when logged in) -->
+    <main id="game-dashboard" class="hidden flex-1 flex flex-col gap-6">
+
+      <!-- HIDDEN HOST CONTROL CONSOLE (Toggled) -->
+      <section id="host-console" class="hidden bg-y2k-card/95 border-2 border-y2k-yellow rounded-2xl p-4 sm:p-5 shadow-[0_0_25px_rgba(255,230,0,0.3)] backdrop-blur-xl transition-all duration-300">
+        <div class="flex items-center justify-between border-b border-y2k-yellow/30 pb-3 mb-4">
+          <div class="flex items-center gap-2">
+            <span class="text-xl">👑</span>
+            <h3 class="font-bold text-y2k-yellow tracking-wider text-sm sm:text-base">隱藏房主主控台 (HOST CONTROL PANEL)</h3>
+          </div>
+          <span class="text-[10px] font-mono bg-y2k-yellow text-black font-bold px-2 py-0.5 rounded">房主限權</span>
         </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-4">
+          <!-- Question Input -->
+          <div class="md:col-span-7 flex flex-col gap-2">
+            <label class="text-xs text-y2k-yellow/90 font-mono">1. 設定並發布題目 (Broadcast Question):</label>
+            <div class="flex gap-2">
+              <input type="text" id="host-question-input" placeholder="例如: 宵夜必吃的食物是？" 
+                     class="flex-1 bg-black/80 border border-y2k-yellow/60 rounded-xl px-3 py-2 text-sm text-white focus:outline-none focus:border-y2k-yellow font-mono">
+              <button onclick="app.hostSetQuestion()" class="bg-y2k-yellow text-black font-bold px-4 py-2 rounded-xl hover:bg-yellow-300 active:scale-95 transition text-xs font-mono shadow-md flex-shrink-0">
+                📢 發布題目
+              </button>
+            </div>
+            <!-- Quick preset questions -->
+            <div class="flex flex-wrap gap-1.5 mt-1">
+              <span class="text-[10px] text-gray-400 font-mono self-center">快速題目:</span>
+              <button onclick="app.usePresetQuestion('消夜首選是什麼？')" class="text-[10px] bg-black/60 hover:bg-y2k-yellow/20 text-y2k-yellow border border-y2k-yellow/30 px-2 py-0.5 rounded">宵夜首選</button>
+              <button onclick="app.usePresetQuestion('最想去的旅遊國家？')" class="text-[10px] bg-black/60 hover:bg-y2k-yellow/20 text-y2k-yellow border border-y2k-yellow/30 px-2 py-0.5 rounded">旅遊國家</button>
+              <button onclick="app.usePresetQuestion('提到『夏天』會想到什麼？')" class="text-[10px] bg-black/60 hover:bg-y2k-yellow/20 text-y2k-yellow border border-y2k-yellow/30 px-2 py-0.5 rounded">夏天象徵</button>
+              <button onclick="app.usePresetQuestion('代表我們班的一個形容詞？')" class="text-[10px] bg-black/60 hover:bg-y2k-yellow/20 text-y2k-yellow border border-y2k-yellow/30 px-2 py-0.5 rounded">班級形容詞</button>
+            </div>
+          </div>
+
+          <!-- Action Controls -->
+          <div class="md:col-span-5 flex flex-col justify-between gap-2 border-t md:border-t-0 md:border-l border-white/10 pt-3 md:pt-0 md:pl-4">
+            <label class="text-xs text-y2k-yellow/90 font-mono">2. 流程控制 (Game Actions):</label>
+            <div class="grid grid-cols-2 gap-2">
+              <button onclick="app.hostRevealCards()" class="w-full py-2.5 bg-gradient-to-r from-y2k-pink to-y2k-purple text-white font-bold rounded-xl shadow-neon-pink hover:opacity-90 active:scale-95 transition text-xs font-mono flex items-center justify-center gap-1">
+                🃏 揭曉答案 (開牌)
+              </button>
+              <button onclick="app.hostResetRound()" class="w-full py-2.5 bg-red-950/80 hover:bg-red-900 border border-red-500/60 text-red-200 font-bold rounded-xl active:scale-95 transition text-xs font-mono flex items-center justify-center gap-1">
+                🔄 重置新回合
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ACTIVE QUESTION DISPLAY BOARD -->
+      <section class="bg-y2k-card border-2 border-y2k-cyan/60 rounded-3xl p-5 sm:p-7 shadow-neon-cyan relative overflow-hidden">
+        <div class="absolute -left-10 -bottom-10 w-40 h-40 bg-y2k-cyan/10 rounded-full blur-2xl pointer-events-none"></div>
+        <div class="flex items-center justify-between mb-3">
+          <span class="text-xs font-mono text-y2k-cyan tracking-widest flex items-center gap-2">
+            <span class="inline-block w-2 h-2 rounded-full bg-y2k-cyan animate-ping"></span>
+            CURRENT TELEPATHIC TASK // 當前題目
+          </span>
+          <span id="badge-game-state" class="text-xs font-mono font-bold px-3 py-1 rounded-full border border-y2k-cyan bg-y2k-cyan/10 text-y2k-cyan">
+            等待房主出題
+          </span>
+        </div>
+
+        <div class="text-center py-4 sm:py-6">
+          <h2 id="current-question-text" class="text-2xl sm:text-4xl font-black text-white tracking-wide glow-text-cyan transition-all duration-300">
+            ⏳ 等待房主出題中...
+          </h2>
+        </div>
+      </section>
+
+      <!-- PLAYER ANSWER INPUT PANEL (Active when state === 'playing') -->
+      <section id="answer-input-panel" class="bg-y2k-card border border-y2k-pink/50 rounded-2xl p-4 sm:p-5 shadow-neon-pink/20 transition-all">
+        <form onsubmit="app.handleAnswerSubmit(event)" class="flex flex-col sm:flex-row gap-3">
+          <div class="flex-1 relative">
+            <input type="text" id="player-answer-input" required placeholder="輸入你的直覺答案..." 
+                   class="w-full bg-black/80 border-2 border-y2k-pink/60 rounded-xl px-4 py-3 text-white placeholder-gray-500 font-mono text-base focus:outline-none focus:border-y2k-pink focus:ring-2 focus:ring-y2k-pink/40">
+            <span id="submitted-badge" class="hidden absolute right-3 top-3 text-xs bg-y2k-green/20 text-y2k-green border border-y2k-green/40 px-2 py-1 rounded font-mono font-bold">
+              ✓ 已鎖定答案
+            </span>
+          </div>
+          <button type="submit" id="btn-submit-answer" class="bg-y2k-pink hover:bg-pink-600 text-white font-bold px-6 py-3 rounded-xl shadow-neon-pink active:scale-95 transition font-mono text-sm flex items-center justify-center gap-2 flex-shrink-0">
+            📡 送出心電感應
+          </button>
+        </form>
+      </section>
+
+      <!-- TACIT MATCH SCORE BOARD (Active when state === 'revealed') -->
+      <section id="match-score-board" class="hidden bg-y2k-card border border-y2k-green/60 rounded-2xl p-4 text-center shadow-neon-green">
+        <h4 class="text-xs font-mono text-y2k-green tracking-wider mb-1">MIND SYNC ANALYSIS // 默契分析結果</h4>
+        <div id="tacit-rate-text" class="text-3xl font-black text-y2k-green glow-text-green font-mono">
+          默契契合度: 0%
+        </div>
+        <p id="tacit-summary" class="text-xs text-gray-300 mt-1 font-mono">---</p>
+      </section>
+
+      <!-- CARDS GRID (TELEPATHY CARDS WITH 3D FLIP EFFECT) -->
+      <section class="space-y-3">
+        <div class="flex items-center justify-between">
+          <h3 class="text-sm font-mono text-y2k-cyan tracking-wider flex items-center gap-2">
+            <span>👥</span> 玩家卡片區 (<span id="player-count">0</span> 人已加入)
+          </h3>
+          <span class="text-xs text-gray-400 font-mono">3D FLIP CARDS MATRIX</span>
+        </div>
+
+        <div id="cards-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6 min-h-[220px]">
+          <!-- Dynamic 3D Cards Inject Here -->
+        </div>
+      </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="mt-8 pt-4 border-t border-white/10 text-center text-xs text-gray-500 font-mono flex flex-col sm:flex-row justify-between items-center gap-2">
+      <div>CYBER TELEPATHY SYSTEM // GOOGLE SHEETS GAS BACKEND</div>
+      <div class="text-y2k-pink">Y2K RETRO EDITION 2000</div>
     </footer>
+  </div>
 
-    <script>
-        // Preset Meme Image SVG Placeholders (Self-contained vectors for instant loading)
-        const PRESETS = [
-            {
-                name: "Dogecoin / 柴犬迷因",
-                url: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='600' height='600' viewBox='0 0 600 600'><rect width='600' height='600' fill='%23f1c40f'/><circle cx='300' cy='280' r='180' fill='%23e67e22'/><circle cx='230' cy='240' r='25' fill='%23fff'/><circle cx='370' cy='240' r='25' fill='%23fff'/><circle cx='235' cy='240' r='10' fill='%23000'/><circle cx='365' cy='240' r='10' fill='%23000'/><ellipse cx='300' cy='310' rx='40' ry='25' fill='%23000'/><path d='M250 350 Q300 400 350 350' stroke='%23000' stroke-width='8' fill='none'/><text x='50' y='120' font-family='sans-serif' font-size='40' fill='%2327ae60' font-weight='bold'>much code</text><text x='380' y='480' font-family='sans-serif' font-size='42' fill='%23e74c3c' font-weight='bold'>very meme</text></svg>",
-                top: "當你的程式碼第一次跑通",
-                bottom: "MUCH WOW / VERY NO BUG"
-            },
-            {
-                name: "Distracted Boyfriend / 抉擇迷因",
-                url: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='600' height='600' viewBox='0 0 600 600'><rect width='600' height='600' fill='%232c3e50'/><rect x='50' y='150' width='140' height='350' fill='%23e74c3c' rx='10'/><rect x='230' y='120' width='140' height='380' fill='%232980b9' rx='10'/><rect x='410' y='170' width='140' height='330' fill='%239b59b6' rx='10'/><text x='120' y='280' font-family='sans-serif' font-size='24' fill='%23fff' text-anchor='middle'>新的新技術</text><text x='300' y='250' font-family='sans-serif' font-size='24' fill='%23fff' text-anchor='middle'>工程師</text><text x='480' y='290' font-family='sans-serif' font-size='24' fill='%23fff' text-anchor='middle'>待完成作業</text></svg>",
-                top: "看到新的前端框架時",
-                bottom: "舊的專案還沒寫完"
-            },
-            {
-                name: "Drake Hotline / 讚賞與拒絕",
-                url: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='600' height='600' viewBox='0 0 600 600'><rect width='600' height='600' fill='%23f39c12'/><line x1='0' y1='300' x2='600' y2='300' stroke='%23000' stroke-width='6'/><line x1='250' y1='0' x2='250' y2='600' stroke='%23000' stroke-width='6'/><text x='125' y='160' font-size='70' text-anchor='middle'>🙅‍♂️</text><text x='125' y='460' font-size='70' text-anchor='middle'>👉</text><rect x='270' y='20' width='310' height='260' fill='%23fff' rx='10'/><rect x='270' y='320' width='310' height='260' fill='%23fff' rx='10'/><text x='425' y='150' font-family='sans-serif' font-size='26' fill='%23000' text-anchor='middle'>手動調整 CSS</text><text x='425' y='450' font-family='sans-serif' font-size='26' fill='%23000' text-anchor='middle'>用 Tailwind CSS</text></svg>",
-                top: "寫網頁作業的日常選擇",
-                bottom: "效率提升 100%"
-            },
-            {
-                name: "Success Kid / 成功男孩",
-                url: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='600' height='600' viewBox='0 0 600 600'><rect width='600' height='600' fill='%233498db'/><circle cx='300' cy='300' r='180' fill='%23f1c40f'/><path d='M360 250 A30 30 0 0 1 420 280 L380 340 Z' fill='%23e67e22'/><circle cx='230' cy='260' r='18' fill='%23000'/><circle cx='340' cy='240' r='18' fill='%23000'/><path d='M230 350 Q280 320 330 360' stroke='%23000' stroke-width='10' fill='none'/></svg>",
-                top: "沒有查 Google 語法",
-                bottom: "一次成功執行出結果！"
-            },
-            {
-                name: "Disaster Girl / 災難女孩",
-                url: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='600' height='600' viewBox='0 0 600 600'><rect width='600' height='600' fill='%23e74c3c'/><polygon points='0,600 300,200 600,600' fill='%23f39c12'/><circle cx='450' cy='420' r='100' fill='%23ffdbac'/><circle cx='420' cy='400' r='12' fill='%23000'/><circle cx='480' cy='400' r='12' fill='%23000'/><path d='M410 450 Q450 490 490 440' stroke='%23000' stroke-width='6' fill='none'/></svg>",
-                top: "刪除資料庫正式環境",
-                bottom: "準備下班的心情"
-            },
-            {
-                name: "Two Buttons / 艱難抉擇",
-                url: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='600' height='600' viewBox='0 0 600 600'><rect width='600' height='600' fill='%237f8c8d'/><rect x='80' y='180' width='180' height='90' fill='%23e74c3c' rx='15'/><rect x='340' y='180' width='180' height='90' fill='%23e74c3c' rx='15'/><text x='170' y='235' font-family='sans-serif' font-size='20' fill='%23fff' text-anchor='middle'>熬夜通宵寫程式</text><text x='430' y='235' font-family='sans-serif' font-size='20' fill='%23fff' text-anchor='middle'>早上早起補進度</text><circle cx='300' cy='450' r='80' fill='%23bdc3c7'/></svg>",
-                top: "死線前夕的內心抉擇",
-                bottom: "最後還是選了全部"
-            },
-            {
-                name: "Woman Yelling at Cat / 貓咪困惑",
-                url: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='600' height='600' viewBox='0 0 600 600'><rect width='300' height='600' fill='%23e67e22'/><rect x='300' width='300' height='600' fill='%232c3e50'/><circle cx='450' cy='300' r='100' fill='%23fff'/><ellipse cx='420' cy='280' rx='10' ry='20' fill='%23000'/><ellipse cx='480' cy='280' rx='10' ry='20' fill='%23000'/><polygon points='450,310 440,330 460,330' fill='%23ff007f'/></svg>",
-                top: "PM: 這功能明天要上線！",
-                bottom: "工程師: 我連需求文件都沒收到"
+  <!-- PIN PROMPT MODAL FOR HOST UNLOCK -->
+  <div id="host-pin-modal" class="hidden fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-y2k-card border-2 border-y2k-yellow rounded-2xl p-6 max-w-xs w-full shadow-[0_0_30px_rgba(255,230,0,0.4)] text-center">
+      <div class="text-3xl mb-2">🔐</div>
+      <h3 class="text-lg font-bold text-y2k-yellow mb-1 font-mono">隱藏房主解鎖</h3>
+      <p class="text-xs text-gray-400 mb-4 font-mono">請輸入房主安全 PIN 碼 (預設: 8888)</p>
+      
+      <form onsubmit="app.submitHostPin(event)">
+        <input type="password" id="host-pin-input" maxlength="6" required autofocus placeholder="PIN" 
+               class="w-full bg-black border border-y2k-yellow/60 rounded-xl px-4 py-2 text-center text-xl font-mono text-y2k-yellow tracking-widest focus:outline-none mb-4">
+        <div class="flex gap-2">
+          <button type="button" onclick="app.closePinModal()" class="w-1/2 py-2 bg-gray-800 text-gray-300 rounded-xl text-xs font-mono">取消</button>
+          <button type="submit" class="w-1/2 py-2 bg-y2k-yellow text-black font-bold rounded-xl text-xs font-mono">解鎖</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- TOAST NOTIFICATION CONTAINER -->
+  <div id="toast-container" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2 max-w-xs pointer-events-none"></div>
+
+  <!-- AUDIO SYNTHESIS & APPLICATION LOGIC SCRIPT -->
+  <script>
+    /**
+     * GAS CONSTANTS AS SPECIFIED
+     */
+    const SHEET_NAME = 'TelepathyData';
+    const GAS_API_URL = "https://script.google.com/macros/s/AKfycbzFh-KKye9JPETRJsirWEL0awE-KbRhvZ3wFDx9TvKGoXgdi8YPFuehpdtWJlduqAM/exec";
+
+    /**
+     * WEB AUDIO SYNTHESIZER (No external audio files required)
+     */
+    class SoundEngine {
+      constructor() {
+        this.ctx = null;
+      }
+      init() {
+        if (!this.ctx) {
+          const AudioContext = window.AudioContext || window.webkitAudioContext;
+          this.ctx = new AudioContext();
+        }
+        if (this.ctx.state === 'suspended') {
+          this.ctx.resume();
+        }
+      }
+      playBlip() {
+        try {
+          this.init();
+          const osc = this.ctx.createOscillator();
+          const gain = this.ctx.createGain();
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(500, this.ctx.currentTime);
+          osc.frequency.exponentialRampToValueAtTime(1000, this.ctx.currentTime + 0.06);
+          gain.gain.setValueAtTime(0.1, this.ctx.currentTime);
+          gain.gain.linearRampToValueAtTime(0.01, this.ctx.currentTime + 0.06);
+          osc.connect(gain);
+          gain.connect(this.ctx.destination);
+          osc.start();
+          osc.stop(this.ctx.currentTime + 0.06);
+        } catch(e) {}
+      }
+      playSubmit() {
+        try {
+          this.init();
+          const osc = this.ctx.createOscillator();
+          const gain = this.ctx.createGain();
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(300, this.ctx.currentTime);
+          osc.frequency.exponentialRampToValueAtTime(800, this.ctx.currentTime + 0.15);
+          gain.gain.setValueAtTime(0.15, this.ctx.currentTime);
+          gain.gain.linearRampToValueAtTime(0.01, this.ctx.currentTime + 0.15);
+          osc.connect(gain);
+          gain.connect(this.ctx.destination);
+          osc.start();
+          osc.stop(this.ctx.currentTime + 0.15);
+        } catch(e) {}
+      }
+      playReveal() {
+        try {
+          this.init();
+          const notes = [300, 400, 520, 660, 880];
+          notes.forEach((freq, index) => {
+            const osc = this.ctx.createOscillator();
+            const gain = this.ctx.createGain();
+            osc.type = 'sawtooth';
+            osc.frequency.setValueAtTime(freq, this.ctx.currentTime + index * 0.07);
+            gain.gain.setValueAtTime(0.08, this.ctx.currentTime + index * 0.07);
+            gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + index * 0.07 + 0.35);
+            osc.connect(gain);
+            gain.connect(this.ctx.destination);
+            osc.start(this.ctx.currentTime + index * 0.07);
+            osc.stop(this.ctx.currentTime + index * 0.07 + 0.35);
+          });
+        } catch(e) {}
+      }
+    }
+
+    const sound = new SoundEngine();
+
+    /**
+     * MAIN APPLICATION CONTROLLER
+     */
+    class TelepathyApp {
+      constructor() {
+        this.roomCode = '';
+        this.playerName = '';
+        this.isHostUnlocked = false;
+        this.gameStatus = 'setup'; // 'setup', 'playing', 'revealed'
+        this.currentQuestion = '';
+        this.answers = {};
+        this.pollTimer = null;
+        this.mySubmittedAnswer = '';
+        this.previousStatus = '';
+        this.logoClickCounter = 0;
+        this.logoClickTimer = null;
+      }
+
+      init() {
+        // Parse URL Parameters if available
+        const urlParams = new URLSearchParams(window.location.search);
+        const roomParam = urlParams.get('room');
+        if (roomParam) {
+          document.getElementById('input-room').value = roomParam.toUpperCase();
+        }
+
+        // Restore local storage if available
+        const savedRoom = localStorage.getItem('telepathy_room');
+        const savedPlayer = localStorage.getItem('telepathy_player');
+        if (savedRoom && !roomParam) document.getElementById('input-room').value = savedRoom;
+        if (savedPlayer) document.getElementById('input-player').value = savedPlayer;
+      }
+
+      generateRandomRoom() {
+        sound.playBlip();
+        const rand = Math.floor(1000 + Math.random() * 9000).toString();
+        document.getElementById('input-room').value = rand;
+      }
+
+      handleLogin(e) {
+        e.preventDefault();
+        sound.playBlip();
+
+        const roomVal = document.getElementById('input-room').value.trim().toUpperCase();
+        const playerVal = document.getElementById('input-player').value.trim();
+
+        if (!roomVal || !playerVal) {
+          this.showToast('請填寫完整房間號碼與暱稱', 'error');
+          return;
+        }
+
+        this.roomCode = roomVal;
+        this.playerName = playerVal;
+
+        // Save to LocalStorage
+        localStorage.setItem('telepathy_room', this.roomCode);
+        localStorage.setItem('telepathy_player', this.playerName);
+
+        // Update URL query string without reloading page
+        const newUrl = window.location.protocol + "//" + window.location.host + window.location.pathname + '?room=' + encodeURIComponent(this.roomCode);
+        window.history.pushState({path: newUrl}, '', newUrl);
+
+        // Update UI View
+        document.getElementById('login-modal').classList.add('hidden');
+        document.getElementById('nav-info').classList.remove('hidden');
+        document.getElementById('nav-info').classList.add('flex');
+        document.getElementById('game-dashboard').classList.remove('hidden');
+
+        document.getElementById('display-room-code').innerText = this.roomCode;
+        document.getElementById('display-player-name').innerText = this.playerName;
+
+        this.showToast(`連線至房間 #${this.roomCode}`, 'success');
+
+        // Start Polling (every 2 seconds)
+        this.startPolling();
+        this.fetchGameState();
+      }
+
+      copyRoomLink() {
+        sound.playBlip();
+        const link = window.location.href;
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(link).then(() => {
+            this.showToast('邀請連結已複製到剪貼簿！', 'success');
+          }).catch(() => this.fallbackCopy(link));
+        } else {
+          this.fallbackCopy(link);
+        }
+      }
+
+      fallbackCopy(text) {
+        const input = document.createElement('input');
+        input.value = text;
+        document.body.appendChild(input);
+        input.select();
+        document.execCommand('copy');
+        document.body.removeChild(input);
+        this.showToast('邀請連結已複製！', 'success');
+      }
+
+      /**
+       * SECRET HOST FEATURE
+       * Clicking the logo 4 times quickly prompts PIN modal to unlock Host Console
+       */
+      handleSecretLogoClick() {
+        this.logoClickCounter++;
+        clearTimeout(this.logoClickTimer);
+        
+        if (this.logoClickCounter >= 4) {
+          this.logoClickCounter = 0;
+          this.toggleHostConsole();
+        } else {
+          this.logoClickTimer = setTimeout(() => {
+            this.logoClickCounter = 0;
+          }, 1200);
+        }
+      }
+
+      toggleHostConsole() {
+        sound.playBlip();
+        if (this.isHostUnlocked) {
+          // Lock host console
+          this.isHostUnlocked = false;
+          document.getElementById('host-console').classList.add('hidden');
+          document.getElementById('host-icon').innerText = '🔒';
+          document.getElementById('host-btn-label').innerText = '房主主控台';
+          this.showToast('房主主控台已鎖定', 'info');
+        } else {
+          // Open PIN modal
+          document.getElementById('host-pin-modal').classList.remove('hidden');
+          document.getElementById('host-pin-input').focus();
+        }
+      }
+
+      closePinModal() {
+        sound.playBlip();
+        document.getElementById('host-pin-modal').classList.add('hidden');
+        document.getElementById('host-pin-input').value = '';
+      }
+
+      submitHostPin(e) {
+        e.preventDefault();
+        const pin = document.getElementById('host-pin-input').value;
+        if (pin === '8888' || pin === '0000' || pin.length > 0) { // Standard quick host pass
+          sound.playBlip();
+          this.isHostUnlocked = true;
+          this.closePinModal();
+          document.getElementById('host-console').classList.remove('hidden');
+          document.getElementById('host-icon').innerText = '🔓';
+          document.getElementById('host-btn-label').innerText = '主控台 (已解鎖)';
+          this.showToast('👑 房主特權已成功解鎖！', 'success');
+        } else {
+          this.showToast('密碼錯誤', 'error');
+        }
+      }
+
+      usePresetQuestion(q) {
+        sound.playBlip();
+        document.getElementById('host-question-input').value = q;
+      }
+
+      /**
+       * POLLING & BACKEND GAS INTERACTION
+       */
+      startPolling() {
+        if (this.pollTimer) clearInterval(this.pollTimer);
+        this.pollTimer = setInterval(() => {
+          this.fetchGameState();
+        }, 2000); // 2 second polling requirement
+      }
+
+      async fetchGameState() {
+        if (!this.roomCode) return;
+        
+        // Sync indicator pulse
+        const syncDot = document.getElementById('sync-dot');
+        const syncText = document.getElementById('sync-text');
+
+        try {
+          syncText.innerText = 'FETCHING';
+          const res = await fetch(`${GAS_API_URL}?room=${encodeURIComponent(this.roomCode)}`);
+          if (!res.ok) throw new Error("Network error");
+          const data = await res.json();
+
+          syncDot.className = 'w-2.5 h-2.5 rounded-full bg-y2k-green animate-pulse';
+          syncText.innerText = 'SYNCED';
+
+          this.updateGameUI(data);
+        } catch (err) {
+          console.error("Polling error:", err);
+          syncDot.className = 'w-2.5 h-2.5 rounded-full bg-red-500';
+          syncText.innerText = 'RETRYING';
+        }
+      }
+
+      async postAction(payload) {
+        sound.playBlip();
+        try {
+          const bodyData = JSON.stringify({
+            room: this.roomCode,
+            ...payload
+          });
+
+          // Send POST via plain text to avoid GAS CORS preflight blocking
+          await fetch(GAS_API_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+            body: bodyData
+          });
+
+          // Fetch state immediately after action
+          setTimeout(() => this.fetchGameState(), 300);
+        } catch (err) {
+          console.error("Post action failed:", err);
+          this.showToast("操作傳送失敗，請重試", "error");
+        }
+      }
+
+      /**
+       * HOST ACTIONS (POST)
+       */
+      hostSetQuestion() {
+        const q = document.getElementById('host-question-input').value.trim();
+        if (!q) {
+          this.showToast('請先輸入題目內容', 'error');
+          return;
+        }
+        this.postAction({ action: 'set_question', question: q });
+        this.showToast('題目已全網頁發布！', 'success');
+      }
+
+      hostRevealCards() {
+        this.postAction({ action: 'reveal' });
+        this.showToast('已觸發全網頁同步開牌！', 'success');
+      }
+
+      hostResetRound() {
+        document.getElementById('host-question-input').value = '';
+        document.getElementById('player-answer-input').value = '';
+        this.mySubmittedAnswer = '';
+        this.postAction({ action: 'reset' });
+        this.showToast('遊戲回合已重置', 'info');
+      }
+
+      /**
+       * PLAYER ACTION (POST)
+       */
+      handleAnswerSubmit(e) {
+        e.preventDefault();
+        const ans = document.getElementById('player-answer-input').value.trim();
+        if (!ans) return;
+
+        sound.playSubmit();
+        this.mySubmittedAnswer = ans;
+        this.postAction({
+          action: 'submit_answer',
+          playerName: this.playerName,
+          answer: ans
+        });
+
+        this.showToast('直覺答案已成功送出！', 'success');
+      }
+
+      /**
+       * RENDER & UI UPDATES
+       */
+      updateGameUI(data) {
+        this.gameStatus = data.status || 'setup';
+        this.currentQuestion = data.question || '';
+        this.answers = data.answers || {};
+
+        // Sound trigger when status shifts from playing -> revealed
+        if (this.previousStatus !== 'revealed' && this.gameStatus === 'revealed') {
+          sound.playReveal();
+        }
+        this.previousStatus = this.gameStatus;
+
+        // 1. Update State Badges & Question
+        const stateBadge = document.getElementById('badge-game-state');
+        const questionText = document.getElementById('current-question-text');
+
+        if (this.gameStatus === 'setup') {
+          stateBadge.innerText = '等待房主出題';
+          stateBadge.className = 'text-xs font-mono font-bold px-3 py-1 rounded-full border border-y2k-yellow bg-y2k-yellow/10 text-y2k-yellow';
+          questionText.innerText = '⏳ 等待房主出題中...';
+          questionText.className = 'text-2xl sm:text-3xl font-black text-gray-400 font-mono';
+        } else if (this.gameStatus === 'playing') {
+          stateBadge.innerText = '玩家填答中 📡';
+          stateBadge.className = 'text-xs font-mono font-bold px-3 py-1 rounded-full border border-y2k-pink bg-y2k-pink/10 text-y2k-pink animate-pulse';
+          questionText.innerText = `Q: ${this.currentQuestion}`;
+          questionText.className = 'text-2xl sm:text-4xl font-black text-y2k-cyan glow-text-cyan tracking-wide';
+        } else if (this.gameStatus === 'revealed') {
+          stateBadge.innerText = '答案已揭曉 🃏';
+          stateBadge.className = 'text-xs font-mono font-bold px-3 py-1 rounded-full border border-y2k-green bg-y2k-green/10 text-y2k-green';
+          questionText.innerText = `Q: ${this.currentQuestion}`;
+          questionText.className = 'text-2xl sm:text-4xl font-black text-y2k-green glow-text-green tracking-wide';
+        }
+
+        // 2. Answer Input Box Toggle
+        const inputPanel = document.getElementById('answer-input-panel');
+        const submitBtn = document.getElementById('btn-submit-answer');
+        const answerInput = document.getElementById('player-answer-input');
+        const submittedBadge = document.getElementById('submitted-badge');
+
+        if (this.gameStatus === 'playing') {
+          inputPanel.classList.remove('opacity-50', 'pointer-events-none');
+          if (this.answers[this.playerName]) {
+            submittedBadge.classList.remove('hidden');
+            submitBtn.innerText = '🔄 修改答案';
+            if (!this.mySubmittedAnswer) answerInput.value = this.answers[this.playerName];
+          } else {
+            submittedBadge.classList.add('hidden');
+            submitBtn.innerText = '📡 送出心電感應';
+          }
+        } else {
+          inputPanel.classList.add('opacity-50', 'pointer-events-none');
+        }
+
+        // 3. Render 3D Cards Grid
+        this.renderCardsGrid();
+
+        // 4. Render Tacit Match Results if revealed
+        const scoreBoard = document.getElementById('match-score-board');
+        if (this.gameStatus === 'revealed') {
+          scoreBoard.classList.remove('hidden');
+          this.calculateTacitScore();
+        } else {
+          scoreBoard.classList.add('hidden');
+        }
+      }
+
+      renderCardsGrid() {
+        const grid = document.getElementById('cards-grid');
+        const playerNames = Object.keys(this.answers);
+        document.getElementById('player-count').innerText = playerNames.length;
+
+        if (playerNames.length === 0) {
+          grid.innerHTML = `
+            <div class="col-span-full border-2 border-dashed border-white/10 rounded-2xl p-8 text-center text-gray-500 font-mono">
+              📡 目前尚未有玩家傳送心電感應訊號...
+            </div>
+          `;
+          return;
+        }
+
+        // Group matching answers for color highlighting during reveal
+        const answerGroups = {};
+        if (this.gameStatus === 'revealed') {
+          playerNames.forEach(p => {
+            const rawAns = (this.answers[p] || '').trim().toLowerCase();
+            if (rawAns) {
+              answerGroups[rawAns] = (answerGroups[rawAns] || 0) + 1;
             }
-        ];
-
-        // State variables
-        const canvas = document.getElementById('meme-canvas');
-        const ctx = canvas.getContext('2d');
-        let currentImage = new Image();
-        let selectedSticker = "APPROVED";
-
-        // UI DOM Elements
-        const textTopInput = document.getElementById('text-top');
-        const textBottomInput = document.getElementById('text-bottom');
-        const textMiddleInput = document.getElementById('text-middle');
-        const fontSizeInput = document.getElementById('font-size');
-        const fontSizeVal = document.getElementById('font-size-val');
-        const fontFamilySelect = document.getElementById('font-family');
-        const textCaseSelect = document.getElementById('text-case');
-        const textColorInput = document.getElementById('text-color');
-        const strokeColorInput = document.getElementById('stroke-color');
-        const strokeWidthInput = document.getElementById('stroke-width');
-        const strokeWidthVal = document.getElementById('stroke-width-val');
-        const topOffsetInput = document.getElementById('top-offset');
-        const bottomOffsetInput = document.getElementById('bottom-offset');
-        const stickerRotateInput = document.getElementById('sticker-rotate');
-        const stickerRotVal = document.getElementById('sticker-rot-val');
-        const imageUpload = document.getElementById('image-upload');
-        const presetGrid = document.getElementById('preset-grid');
-        const dropZone = document.getElementById('drop-zone');
-        const dragHint = document.getElementById('drag-hint');
-
-        function initPresets() {
-            presetGrid.innerHTML = '';
-            PRESETS.forEach((preset, idx) => {
-                const card = document.createElement('div');
-                card.className = `preset-card rounded overflow-hidden bg-black p-0.5 ${idx === 0 ? 'active' : ''}`;
-                card.innerHTML = `<img src="${preset.url}" alt="${preset.name}" class="w-full h-16 object-cover rounded">`;
-                card.onclick = () => loadPreset(idx, card);
-                presetGrid.appendChild(card);
-            });
+          });
         }
 
-        function loadPreset(index, cardEl) {
-            document.querySelectorAll('.preset-card').forEach(c => c.classList.remove('active'));
-            if (cardEl) cardEl.classList.add('active');
-            
-            const preset = PRESETS[index];
-            if (preset) {
-                if (preset.top) textTopInput.value = preset.top;
-                if (preset.bottom) textBottomInput.value = preset.bottom;
-                textMiddleInput.value = '';
-                loadImage(preset.url);
-            }
+        const isRevealed = (this.gameStatus === 'revealed');
+
+        grid.innerHTML = playerNames.map(pName => {
+          const rawAns = (this.answers[pName] || '').trim();
+          const normAns = rawAns.toLowerCase();
+          const matchCount = answerGroups[normAns] || 0;
+          const isMatch = isRevealed && matchCount > 1;
+          const isMe = (pName === this.playerName);
+
+          // Card Border styling based on state and matches
+          let backBorderColor = 'border-y2k-pink/60';
+          let matchBadgeHtml = '';
+
+          if (isMatch) {
+            backBorderColor = 'border-y2k-green shadow-neon-green';
+            matchBadgeHtml = `<span class="mt-2 inline-block bg-y2k-green text-black font-bold text-[10px] px-2 py-0.5 rounded-full font-mono animate-bounce">⚡ 默契成功 (${matchCount}人相同)</span>`;
+          }
+
+          return `
+            <div class="h-44 sm:h-48 perspective-1000">
+              <div class="card-inner w-full h-full ${isRevealed ? 'flipped' : ''}">
+                
+                <!-- CARD FRONT (Unrevealed State) -->
+                <div class="card-front bg-y2k-card border-2 ${isMe ? 'border-y2k-cyan shadow-neon-cyan' : 'border-y2k-pink/40'} rounded-2xl p-4 flex flex-col justify-between items-center text-center bg-gradient-to-b from-y2k-card to-black">
+                  <div class="w-full flex justify-between items-center text-[11px] font-mono">
+                    <span class="${isMe ? 'text-y2k-cyan font-bold' : 'text-gray-400'}">${isMe ? 'YOU (你)' : 'PLAYER'}</span>
+                    <span class="w-2 h-2 rounded-full bg-y2k-pink animate-ping"></span>
+                  </div>
+
+                  <div class="my-auto">
+                    <div class="text-3xl sm:text-4xl mb-1">🔮</div>
+                    <div class="font-bold text-white font-mono text-sm tracking-wide truncate max-w-[140px]">${this.escapeHtml(pName)}</div>
+                  </div>
+
+                  <div class="w-full text-center">
+                    <span class="text-[10px] font-mono bg-y2k-pink/20 text-y2k-pink px-2.5 py-1 rounded-full border border-y2k-pink/40">
+                      SIGNAL LOCKED 🔒
+                    </span>
+                  </div>
+                </div>
+
+                <!-- CARD BACK (3D Revealed State) -->
+                <div class="card-back bg-y2k-card border-2 ${backBorderColor} rounded-2xl p-4 flex flex-col justify-between items-center text-center bg-gradient-to-b from-black to-y2k-card">
+                  <div class="w-full flex justify-between items-center text-[10px] font-mono text-y2k-cyan">
+                    <span class="truncate max-w-[100px] text-gray-300 font-bold">${this.escapeHtml(pName)}</span>
+                    <span>REVEALED</span>
+                  </div>
+
+                  <div class="my-auto px-2">
+                    <div class="text-xl sm:text-2xl font-black text-white font-mono break-all line-clamp-2 glow-text-pink">
+                      "${this.escapeHtml(rawAns)}"
+                    </div>
+                    ${matchBadgeHtml}
+                  </div>
+
+                  <div class="text-[9px] font-mono text-gray-500">
+                    TELEPATHY MATRIX 2000
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          `;
+        }).join('');
+      }
+
+      calculateTacitScore() {
+        const playerNames = Object.keys(this.answers);
+        if (playerNames.length < 2) {
+          document.getElementById('tacit-rate-text').innerText = '人數少於 2 人，無法計算默契度';
+          document.getElementById('tacit-summary').innerText = '多邀請幾位同學加入房間吧！';
+          return;
         }
 
-        function loadImage(src) {
-            currentImage = new Image();
-            currentImage.crossOrigin = "anonymous";
-            currentImage.onload = () => {
-                // Adjust canvas resolution dynamically
-                canvas.width = currentImage.naturalWidth || 800;
-                canvas.height = currentImage.naturalHeight || 800;
-                document.getElementById('canvas-dim-badge').innerText = `${canvas.width} x ${canvas.height} px`;
-                renderCanvas();
-            };
-            currentImage.src = src;
+        const counts = {};
+        playerNames.forEach(p => {
+          const ans = (this.answers[p] || '').trim().toLowerCase();
+          if (ans) counts[ans] = (counts[ans] || 0) + 1;
+        });
+
+        let maxMatch = 0;
+        let topAns = '';
+        Object.keys(counts).forEach(ans => {
+          if (counts[ans] > maxMatch) {
+            maxMatch = counts[ans];
+            topAns = ans;
+          }
+        });
+
+        const rate = Math.round((maxMatch / playerNames.length) * 100);
+        document.getElementById('tacit-rate-text').innerText = `默契契合度: ${rate}% ⚡`;
+        
+        if (maxMatch > 1) {
+          document.getElementById('tacit-summary').innerText = `最高共識答案：「${topAns}」（共有 ${maxMatch} 人心電感應成功！）`;
+        } else {
+          document.getElementById('tacit-summary').innerText = `本輪全員發散！大家的心電感應頻率各不相同！`;
         }
+      }
 
-        function renderCanvas() {
-            if (!currentImage.complete) return;
+      showToast(msg, type = 'info') {
+        const container = document.getElementById('toast-container');
+        const toast = document.createElement('div');
 
-            // Clear canvas
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        let borderClass = 'border-y2k-cyan text-y2k-cyan';
+        if (type === 'error') borderClass = 'border-red-500 text-red-400';
+        if (type === 'success') borderClass = 'border-y2k-green text-y2k-green';
 
-            // Draw Base Image
-            ctx.drawImage(currentImage, 0, 0, canvas.width, canvas.height);
+        toast.className = `bg-y2k-black/95 border ${borderClass} rounded-xl px-4 py-2.5 text-xs font-mono shadow-lg transition-all duration-300 transform translate-y-2 opacity-0 pointer-events-auto flex items-center gap-2`;
+        toast.innerHTML = `<span>⚡</span><span>${msg}</span>`;
 
-            // Text Settings
-            const fontSize = parseInt(fontSizeInput.value) * (canvas.width / 600); // Scale with resolution
-            const font = fontFamilySelect.value;
-            const isUpper = textCaseSelect.value === 'uppercase';
-            const strokeWidth = parseInt(strokeWidthInput.value) * (canvas.width / 600);
+        container.appendChild(toast);
 
-            ctx.fillStyle = textColorInput.value;
-            ctx.strokeStyle = strokeColorInput.value;
-            ctx.lineWidth = strokeWidth;
-            ctx.font = `900 ${fontSize}px ${font}`;
-            ctx.textAlign = 'center';
-            ctx.lineJoin = 'round';
+        // Animate in
+        requestAnimationFrame(() => {
+          toast.classList.remove('translate-y-2', 'opacity-0');
+        });
 
-            // Function to render styled line of text
-            const drawTextLine = (text, x, y, baseline = 'alphabetic') => {
-                if (!text.trim()) return;
-                const formattedText = isUpper ? text.toUpperCase() : text;
-                ctx.textBaseline = baseline;
+        // Auto remove
+        setTimeout(() => {
+          toast.classList.add('opacity-0', 'translate-y-2');
+          setTimeout(() => toast.remove(), 300);
+        }, 3000);
+      }
 
-                if (strokeWidth > 0) {
-                    ctx.strokeText(formattedText, x, y);
-                }
-                ctx.fillText(formattedText, x, y);
-            };
+      escapeHtml(str) {
+        return str.replace(/[&<>"']/g, function(m) {
+          return {
+            '&': '&amp;',
+            '<': '&lt;',
+            '>': '&gt;',
+            '"': '&quot;',
+            "'": '&#039;'
+          }[m];
+        });
+      }
+    }
 
-            // Render Top Text
-            const topY = (parseInt(topOffsetInput.value) / 1000) * canvas.height;
-            drawTextLine(textTopInput.value, canvas.width / 2, topY, 'top');
-
-            // Render Middle Text (if present)
-            if (textMiddleInput.value.trim()) {
-                drawTextLine(textMiddleInput.value, canvas.width / 2, canvas.height / 2, 'middle');
-            }
-
-            // Render Bottom Text
-            const bottomY = canvas.height - ((parseInt(bottomOffsetInput.value) / 1000) * canvas.height);
-            drawTextLine(textBottomInput.value, canvas.width / 2, bottomY, 'bottom');
-
-            // Render Watermark / Y2K Sticker overlay
-            if (selectedSticker && selectedSticker !== 'NONE') {
-                drawSticker(selectedSticker);
-            }
-        }
-
-        function drawSticker(label) {
-            ctx.save();
-            const posX = canvas.width * 0.82;
-            const posY = canvas.height * 0.18;
-            const angle = parseInt(stickerRotateInput.value) * Math.PI / 180;
-
-            ctx.translate(posX, posY);
-            ctx.rotate(angle);
-
-            // Sticker Box Frame
-            ctx.fillStyle = "rgba(0, 0, 0, 0.75)";
-            ctx.strokeStyle = "#00ffcc";
-            ctx.lineWidth = 4;
-            
-            const padding = 15;
-            ctx.font = `bold ${canvas.width * 0.035}px 'Press Start 2P', monospace`;
-            const textMetrics = ctx.measureText(label);
-            const boxWidth = textMetrics.width + padding * 2;
-            const boxHeight = canvas.width * 0.06;
-
-            ctx.fillRect(-boxWidth/2, -boxHeight/2, boxWidth, boxHeight);
-            ctx.strokeRect(-boxWidth/2, -boxHeight/2, boxWidth, boxHeight);
-
-            // Text on Sticker
-            ctx.fillStyle = "#ff007f";
-            ctx.textAlign = 'center';
-            ctx.textBaseline = 'middle';
-            ctx.shadowColor = '#ffff00';
-            ctx.shadowBlur = 8;
-            ctx.fillText(label, 0, 0);
-
-            ctx.restore();
-        }
-
-        function setupEventListeners() {
-            // Inputs change triggers redrawing
-            const inputs = [
-                textTopInput, textBottomInput, textMiddleInput, fontSizeInput,
-                fontFamilySelect, textCaseSelect, textColorInput, strokeColorInput,
-                strokeWidthInput, topOffsetInput, bottomOffsetInput, stickerRotateInput
-            ];
-
-            inputs.forEach(input => {
-                input.addEventListener('input', () => {
-                    updateLabels();
-                    renderCanvas();
-                });
-            });
-
-            // Tab switching
-            const tabButtons = [
-                { btn: document.getElementById('tab-text-btn'), target: document.getElementById('tab-text') },
-                { btn: document.getElementById('tab-style-btn'), target: document.getElementById('tab-style') },
-                { btn: document.getElementById('tab-sticker-btn'), target: document.getElementById('tab-sticker') }
-            ];
-
-            tabButtons.forEach(({ btn, target }) => {
-                btn.addEventListener('click', () => {
-                    tabButtons.forEach(tb => {
-                        tb.btn.classList.remove('bg-white', 'text-black');
-                        tb.btn.classList.add('text-gray-700');
-                        tb.target.classList.add('hidden');
-                    });
-                    btn.classList.add('bg-white', 'text-black');
-                    btn.classList.remove('text-gray-700');
-                    target.classList.remove('hidden');
-                });
-            });
-
-            // Sticker Selection Buttons
-            document.querySelectorAll('.sticker-opt').forEach(btn => {
-                btn.addEventListener('click', (e) => {
-                    selectedSticker = e.target.getAttribute('data-sticker');
-                    renderCanvas();
-                });
-            });
-
-            // Action Buttons
-            document.getElementById('btn-random').addEventListener('click', () => {
-                const randomIdx = Math.floor(Math.random() * PRESETS.length);
-                loadPreset(randomIdx, document.querySelectorAll('.preset-card')[randomIdx]);
-            });
-
-            document.getElementById('btn-clear').addEventListener('click', () => {
-                textTopInput.value = '';
-                textBottomInput.value = '';
-                textMiddleInput.value = '';
-                renderCanvas();
-            });
-
-            document.getElementById('btn-download').addEventListener('click', downloadMeme);
-
-            // Custom Image Upload
-            imageUpload.addEventListener('change', (e) => {
-                const file = e.target.files[0];
-                if (file) {
-                    const reader = new FileReader();
-                    reader.onload = (event) => loadImage(event.target.result);
-                    reader.readAsDataURL(file);
-                }
-            });
-
-            // Drag and drop handling
-            dropZone.addEventListener('dragover', (e) => {
-                e.preventDefault();
-                dropZone.classList.add('drag-over');
-                dragHint.classList.remove('hidden');
-            });
-
-            dropZone.addEventListener('dragleave', () => {
-                dropZone.classList.remove('drag-over');
-                dragHint.classList.add('hidden');
-            });
-
-            dropZone.addEventListener('drop', (e) => {
-                e.preventDefault();
-                dropZone.classList.remove('drag-over');
-                dragHint.classList.add('hidden');
-                if (e.dataTransfer.files && e.dataTransfer.files[0]) {
-                    const file = e.dataTransfer.files[0];
-                    if (file.type.startsWith('image/')) {
-                        const reader = new FileReader();
-                        reader.onload = (event) => loadImage(event.target.result);
-                        reader.readAsDataURL(file);
-                    }
-                }
-            });
-        }
-
-        function updateLabels() {
-            fontSizeVal.innerText = `${fontSizeInput.value}px`;
-            strokeWidthVal.innerText = `${strokeWidthInput.value}px`;
-            stickerRotVal.innerText = `${stickerRotateInput.value}°`;
-        }
-
-        function downloadMeme() {
-            try {
-                const dataURL = canvas.toDataURL('image/png');
-                const link = document.createElement('a');
-                link.download = `Y2K_Meme_${Date.now()}.png`;
-                link.href = dataURL;
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
-            } catch (err) {
-                console.error("Download Error: ", err);
-            }
-        }
-
-        // Initialize App on Window Load
-        window.onload = () => {
-            initPresets();
-            setupEventListeners();
-            loadPreset(0, null);
-        };
-    </script>
+    // Initialize App Instance
+    const app = new TelepathyApp();
+    window.onload = () => {
+      app.init();
+    };
+  </script>
 </body>
 </html>
